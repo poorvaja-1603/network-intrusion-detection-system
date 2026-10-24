@@ -1,0 +1,83 @@
+[
+  {
+    "experiment": "exp1_full",
+    "setting": "full",
+    "n_dims": 41,
+    "source": "Table 3",
+    "results": [
+      {"model": "BayesNet",     "accuracy": 0.714, "fpr": 0.255},
+      {"model": "NaiveBayes",   "accuracy": 0.731, "fpr": 0.235},
+      {"model": "J48",          "accuracy": 0.791, "fpr": 0.185},
+      {"model": "PART",         "accuracy": 0.739, "fpr": 0.240},
+      {"model": "RandomForest", "accuracy": 0.778, "fpr": 0.201}
+    ]
+  },
+  {
+    "experiment": "exp2_pca",
+    "setting": "pca",
+    "n_dims": 1,
+    "source": "Table 5",
+    "note": "PCA with 1 component; paper claims 92% variance in first PC",
+    "results": [
+      {"model": "BayesNet",     "accuracy": 0.762, "fpr": 0.215},
+      {"model": "NaiveBayes",   "accuracy": 0.788, "fpr": 0.190},
+      {"model": "J48",          "accuracy": 0.767, "fpr": 0.210},
+      {"model": "PART",         "accuracy": 0.770, "fpr": 0.205},
+      {"model": "RandomForest", "accuracy": 0.741, "fpr": 0.240}
+    ]
+  },
+  {
+    "experiment": "exp3_rp_gaussian",
+    "setting": "rp_gaussian",
+    "n_dims": 5,
+    "source": "Table 7 (Gaussian columns)",
+    "results": [
+      {"model": "BayesNet",     "accuracy": 0.784, "fpr": 0.160},
+      {"model": "NaiveBayes",   "accuracy": 0.773, "fpr": 0.205},
+      {"model": "J48",          "accuracy": 0.796, "fpr": 0.170},
+      {"model": "PART",         "accuracy": 0.820, "fpr": 0.162},
+      {"model": "RandomForest", "accuracy": 0.775, "fpr": 0.200}
+    ]
+  },
+  {
+    "experiment": "exp3_rp_sparse",
+    "setting": "rp_sparse",
+    "n_dims": 5,
+    "source": "Table 7 (Sparse columns)",
+    "results": [
+      {"model": "BayesNet",     "accuracy": 0.755, "fpr": 0.220},
+      {"model": "NaiveBayes",   "accuracy": 0.716, "fpr": 0.250},
+      {"model": "J48",          "accuracy": 0.772, "fpr": 0.205},
+      {"model": "PART",         "accuracy": 0.753, "fpr": 0.215},
+      {"model": "RandomForest", "accuracy": 0.773, "fpr": 0.205}
+    ]
+  },
+  {
+    "experiment": "confusion_matrices",
+    "source": "Tables 4, 6, 8",
+    "matrices": {
+      "J48_full": {
+        "note": "Table 4 — has typo: 34231 should be 4231 (anomaly row must sum to 12833)",
+        "reported": [[9240, 471], [34231, 8602]],
+        "corrected": [[9240, 471], [4231, 8602]]
+      },
+      "NaiveBayes_pca": {
+        "note": "Table 6",
+        "reported": [[9281, 430], [4343, 8490]]
+      },
+      "PART_rp_gaussian": {
+        "note": "Table 8",
+        "reported": [[9438, 273], [3784, 9049]]
+      }
+    }
+  },
+  {
+    "experiment": "precision_recall_f1",
+    "source": "Table 9 — PART classifier after Gaussian RP",
+    "results": {
+      "normal":  {"precision": 0.714, "recall": 0.972, "f1": 0.823},
+      "anomaly": {"precision": 0.971, "recall": 0.705, "f1": 0.817}
+    }
+  }
+]
+
