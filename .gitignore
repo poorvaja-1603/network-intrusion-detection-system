@@ -24,7 +24,7 @@ env/
 
 # Data (large files — download separately)
 data/*.csv
-data/*.txt
+# data/*.txt
 data/*.arff
 
 # Models (large binary files)
