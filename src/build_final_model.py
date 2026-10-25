@@ -10,38 +10,15 @@ Creates:
 from pathlib import Path
 import json
 import joblib
-import numpy as np
-import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.base import BaseEstimator, ClassifierMixin
+from api.demo_model import DemoModel
 
-from src.data import load_nsl_kdd, FEATURE_COLUMNS
+from src.data import load_nsl_kdd
 from src.preprocess import build_preprocessor
 from src.evaluate import compute_metrics, Timer
 
 MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
-
-
-class DummyModel(BaseEstimator, ClassifierMixin):
-    """Stub model returning random class labels with probabilities for task 24."""
-
-    def __init__(self):
-        self.classes_ = np.array(["dos", "normal", "probe", "r2l", "u2r"])
-
-    def fit(self, X, y=None):
-        return self
-
-    def predict(self, X):
-        rng = np.random.default_rng(42)
-        n = len(X)
-        return rng.choice(self.classes_, size=n)
-
-    def predict_proba(self, X):
-        rng = np.random.default_rng(42)
-        n = len(X)
-        probs = rng.uniform(0.1, 1.0, size=(n, len(self.classes_)))
-        return probs / probs.sum(axis=1, keepdims=True)
 
 
 def build_final_model():
@@ -49,11 +26,7 @@ def build_final_model():
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
     # 1. Build and save dummy model (Task 24)
-    dummy_pipe = Pipeline([
-        ("preprocessor", build_preprocessor()),
-        ("classifier", DummyModel()),
-    ])
-    # Fit preprocessor on a small mock sample
+    dummy_pipe = DemoModel()
     dummy_path = MODELS_DIR / "dummy.joblib"
     joblib.dump(dummy_pipe, dummy_path)
     print(f"  [OK] Saved dummy model: {dummy_path.name}")

@@ -1,10 +1,99 @@
-"""
-FastAPI inference service for NIDS
+"""FastAPI inference service and in-memory alert feed for NSL-KDD flows."""
+from collections import Counter, deque
+from datetime import datetime, timezone
+from pathlib import Path
+from threading import Lock
+from time import perf_counter
+from typing import Any
 
-Endpoints:
-  POST /predict    — Classify network flows (41 raw features)
-  GET  /health     — Health check + model version
-  GET  /alerts     — Latest attack predictions
-  GET  /stats      — Counts per label, total flows, alert rate
-"""
+import joblib
+import numpy as np
+import pandas as pd
+from fastapi import FastAPI, HTTPException, Query
+
+from .demo_model import DemoModel, LABELS
+from .schemas import PredictRequest, PredictResponse, Prediction
+from src.data import FEATURE_COLUMNS
+
+ROOT = Path(__file__).resolve().parents[1]
+MODEL_PATH = ROOT / "models" / "final.joblib"
+DUMMY_PATH = ROOT / "models" / "dummy.joblib"
+ALERT_LIMIT = 5000
+
+
+def load_model():
+    """Prefer the production pipeline, then saved dummy, then an in-memory stub."""
+    for path in (MODEL_PATH, DUMMY_PATH):
+        if path.is_file():
+            try:
+                return joblib.load(path), "v1" if path == MODEL_PATH else "dummy"
+            except Exception as exc:
+                if path == MODEL_PATH:
+                    raise RuntimeError(f"Could not load model at {path}: {exc}") from exc
+    return DemoModel(), "dummy"
+
+
+model, model_version = load_model()
+alerts: deque[dict[str, Any]] = deque(maxlen=ALERT_LIMIT)
+label_counts: Counter[str] = Counter()
+total_flows = 0
+store_lock = Lock()
+app = FastAPI(title="Network Intrusion Detection API", version="1.0.0")
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok", "model_version": model_version}
+
+
+@app.post("/predict", response_model=PredictResponse)
+def predict(request: PredictRequest):
+    global total_flows
+    if not request.flows:
+        return PredictResponse(predictions=[], latency_ms=0.0)
+    frame = pd.DataFrame([flow.model_dump() for flow in request.flows], columns=FEATURE_COLUMNS)
+    started = perf_counter()
+    try:
+        labels = model.predict(frame)
+        probabilities = model.predict_proba(frame) if hasattr(model, "predict_proba") else None
+    except Exception as exc:
+        raise HTTPException(status_code=422, detail=f"Model could not process input: {exc}") from exc
+    elapsed = (perf_counter() - started) * 1000
+    outputs: list[Prediction] = []
+    now = datetime.now(timezone.utc).isoformat()
+    with store_lock:
+        for index, raw_label in enumerate(labels):
+            label = str(raw_label).lower()
+            is_attack = label != "normal"
+            confidence = float(np.max(probabilities[index])) if probabilities is not None else 1.0
+            outputs.append(Prediction(label=label, is_attack=is_attack, confidence=confidence))
+            label_counts[label] += 1
+            total_flows += 1
+            if is_attack:
+                alerts.appendleft({
+                    "timestamp": now,
+                    "label": label,
+                    "confidence": round(confidence, 6),
+                    "flow": request.flows[index].model_dump(),
+                })
+    return PredictResponse(predictions=outputs, latency_ms=round(elapsed, 3))
+
+
+@app.get("/alerts")
+def get_alerts(limit: int = Query(default=50, ge=1, le=500)):
+    with store_lock:
+        return {"alerts": list(alerts)[:limit]}
+
+
+@app.get("/stats")
+def get_stats():
+    with store_lock:
+        snapshot = dict(label_counts)
+        count = total_flows
+    attacks = count - snapshot.get("normal", 0)
+    return {
+        "counts_per_label": {label: snapshot.get(label, 0) for label in LABELS},
+        "total_flows": count,
+        "alert_rate": round(attacks / count, 6) if count else 0.0,
+    }
 

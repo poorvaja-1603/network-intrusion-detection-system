@@ -1,68 +1,47 @@
 # Network Intrusion Detection System — ML Mini Project
 
-Reproducing and extending: **"Enhancing intrusion detection systems through dimensionality reduction: A comparative study of machine learning techniques for cyber security"** — Nabi & Zhou (2024)
+Reproducing and extending Nabi & Zhou (2024), *Enhancing intrusion detection systems through dimensionality reduction: A comparative study of machine learning techniques for cyber security*.
 
-## Project Structure
+## Run the system demo (Windows)
 
-```
-ml-mini-project/
-├── data/                  # NSL-KDD dataset (KDDTrain+, KDDTest+)
-├── src/                   # Core source code
-│   ├── data.py            # Data loading & preprocessing contract
-│   ├── preprocess.py      # ColumnTransformer (OneHot + Scaler)
-│   ├── models.py          # Model zoo (NB, DT/J48, RF, XGBoost, MLP)
-│   ├── evaluate.py        # Metrics, timing, results writer
-│   └── attack_map.py      # Attack name → category mapping
-├── models/                # Saved models (final.joblib, dummy.joblib)
-├── results/               # Experiment output JSONs
-├── api/                   # FastAPI inference service
-│   ├── main.py            # API endpoints
-│   └── schemas.py         # Pydantic request/response schemas
-├── app/                   # Streamlit dashboard & replay
-│   ├── dashboard.py       # Streamlit UI
-│   └── replay.py          # KDDTest+ replay client
-├── notebooks/             # EDA and experiment notebooks
-├── reports/               # Report sections & generated figures
-│   └── figures/           # Plots, confusion matrices, charts
-├── tests/                 # Unit and integration tests
-├── docs/                  # Research paper, plan, references
-├── configs/               # Experiment configs (hyperparams, sweeps)
-├── requirements.txt       # Python dependencies
-├── .gitignore
-└── README.md
+Double-click `run.bat` (or run it from a terminal). On first launch it creates `.venv`, installs the demo dependencies, creates `models/dummy.joblib` when the trained model is not present, then starts the FastAPI service and Streamlit dashboard. The dummy model emits repeatable random labels for interface demonstration only; it is not a trained detector and its metrics must not be reported.
+
+In a second terminal, replay benchmark flows:
+
+```powershell
+.venv\Scripts\python.exe -m app.replay --limit 300 --rate 4
 ```
 
-## Quick Start
+You can filter to one raw attack name with `--attack-type neptune`, change the batch size with `--batch-size 32`, and set `--rate 0` to disable pacing. The API docs are at `http://127.0.0.1:8000/docs`.
 
-```bash
-# 1. Create virtual environment
-python -m venv venv
-venv\Scripts\activate        # Windows
+## API
 
-# 2. Install dependencies
+- `GET /health` — service status and loaded model version
+- `POST /predict` — batch of raw flows containing all 41 features
+- `GET /alerts?limit=50` — recent attack predictions
+- `GET /stats` — class counts, total flows, and predicted alert rate
+
+## Project structure
+
+```text
+├── data/                  # NSL-KDD files (download separately)
+├── src/                   # data, preprocessing, models, experiments
+├── models/                # final.joblib and generated dummy.joblib
+├── results/               # experiment JSON outputs
+├── api/                   # FastAPI service and request schemas
+├── app/                   # Streamlit dashboard and replay client
+├── reports/               # report sections, figures, demo and viva material
+├── docs/                  # plan and references
+├── requirements.txt       # full experiment environment
+└── requirements-demo.txt  # minimal API/replay/dashboard environment
+```
+
+## Full experiment setup
+
+```powershell
+py -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
-
-# 3. Download NSL-KDD dataset
-# Place KDDTrain+.txt and KDDTest+.txt in data/
-# Source: https://www.unb.ca/cic/datasets/nsl.html
-
-# 4. Run experiments
-python -m src.run_experiments
-
-# 5. Start the API
-uvicorn api.main:app --reload
-
-# 6. Launch the dashboard
-streamlit run app/dashboard.py
 ```
 
-## Dataset
-
-**NSL-KDD** — 125,973 training rows, 22,544 test rows, 41 features.
-- Binary task: Normal vs Anomaly
-- 5-class task: Normal, DoS, Probe, R2L, U2R
-
-## Reference
-
-Nabi, F., & Zhou, X. (2024). Enhancing intrusion detection systems through dimensionality reduction: A comparative study of machine learning techniques for cyber security. *Cyber Security and Applications*, 2, 100033.
-
+NSL-KDD sources and instructions are in `data/README.md`. Paper details and project scope are in `docs/plan.md`.
