@@ -2,7 +2,7 @@
 
 Paper: Nabi and Zhou, "Enhancing intrusion detection systems through dimensionality reduction: A comparative study of machine learning techniques for cyber security", Cyber Security and Applications 2 (2024) 100033.
 
-Team: 4 | Today: Sat 24 Oct 2026 | Submit: Tue 27 Oct 2026
+Team: 4 members (B and C currently available) | Today: Sat 24 Oct 2026 | Submit: Tue 27 Oct 2026
 Code freeze: Monday night. Tuesday is buffer, rehearsal, submission.
 
 Team members are referred to as **A**, **B**, **C**, **D** below. Swap in real names.
@@ -66,7 +66,7 @@ Full per model tables are in the paper (Tables 3, 5, 7, 10). Copy them into `res
 
 ## 4. Contracts (agree on these Saturday morning so everyone can work alone)
 
-**Data contract (`src/data.py`, owned by A, task 3)**
+**Data contract (`src/data.py`, now maintained by C, task 3)**
 ```
 FEATURE_COLUMNS: list of the 41 raw feature names (in dataset order)
 load_nsl_kdd() -> X_train, y_train_bin, y_train_cat, X_test, y_test_bin, y_test_cat
@@ -75,7 +75,7 @@ load_nsl_kdd() -> X_train, y_train_bin, y_train_cat, X_test, y_test_bin, y_test_
    y_*_cat    : one of "normal", "dos", "probe", "r2l", "u2r"
 ```
 
-**Model contract (`models/final.joblib`, owned by A, task 20)**
+**Model contract (`models/final.joblib`, now maintained by C, task 20)**
 A single sklearn Pipeline that takes the **raw** 41 column DataFrame and supports `predict` and `predict_proba`. Preprocessing and any projection live inside the pipeline. Nobody downstream should ever re preprocess.
 
 **API contract (owned by C, task 23)**
@@ -88,7 +88,7 @@ GET  /stats     counts per label, total flows, alert rate
 ```
 
 **Results contract (all experiment code writes here)**
-`results/<experiment_name>.json` with keys: `model`, `setting` (full, pca, rp_gaussian, rp_sparse, kbest), `n_dims`, `seed`, `accuracy`, `fpr`, `precision`, `recall`, `f1`, `macro_f1`, `fit_seconds`, `confusion_matrix`. B and D read only from here for plots and the dashboard.
+`results/<experiment_name>.json` with keys: `model`, `setting` (full, pca, rp_gaussian, rp_sparse, kbest), `n_dims`, `seed`, `accuracy`, `fpr`, `precision`, `recall`, `f1`, `macro_f1`, `fit_seconds`, `confusion_matrix`. B and C read from here for plots and the dashboard.
 
 ---
 
@@ -148,42 +148,43 @@ Slots: **Sat**, **Sun**, **Mon**. "Needs" means what must exist before you can s
 | 31 | Report: methodology, results, discussion, limitations (our analysis of the paper's weak spots) | report sections | Mon | 9 to 22 |
 | 32 | Report: abstract, introduction, related work (use the paper's references), dataset description | report sections | Mon | 5 |
 | 33 | Report: system design and demo section, architecture diagram | report section, diagram | Mon | 23 to 28 |
-| 34 | Slide deck, 10 to 12 slides | `slides.pptx` or PDF | Mon | 30 |
+| 34 | Slide deck, 10 to 12 slides (deferred; prepare later) | `slides.pptx` or PDF | Later | 30 |
 | 35 | Demo script (3 minute flow) and a 2 minute backup screen recording | script + video file | Mon night | 28 |
 | 36 | Viva prep document: 20 likely questions with short answers (see section 9) and a one page glossary | `viva_prep.md` | Mon | 31 |
 
 ---
 
-## 6. Who does which numbers (updated after D became unavailable)
+## 6. Current task owners after A and D became unavailable
 
-Member D is unavailable, so D's tasks are reassigned among A, B, and C. Existing assignments remain in place. The counts below include reassigned work and are therefore higher than the original split.
+Members A and D are unavailable. Completed files and results from their work stay in the project and retain their contribution history; they are not being redone. Remaining responsibilities are assigned to B and C below. Task 34 (slides) stays deferred for later.
 
-| Person | Original tasks | Reassigned from D | Total |
-|---|---|---|---|
-| **A** | **3, 6, 7, 8, 9, 12, 16, 20, 22, 31** | **10, 13, 14** | 13 |
-| **B** | **2, 4, 5, 11, 15, 18, 29, 30, 32** | **19, 21, 34** | 12 |
-| **C** | **1, 23, 24, 25, 26, 28, 33, 35, 36** | **17, 27** | 11 |
-| **D (unavailable)** | — | Reassigned | 0 |
-
-All tasks 1–36 remain assigned exactly once. D's work is divided by dependency: A handles the related PCA/sparse-RP/multi-seed experiments; B handles generalisation/error-supporting analysis, feature importance, and slides; C handles modern models and the dashboard that C already owns for integration.
-
-### Reassigned task handoffs
-
-| Task | New owner | Handoff / dependency |
+| Person | Current task numbers | Count |
 |---|---|---|
-| 10 — PCA experiment | A | Use the shared train-fitted preprocessing from tasks 6–8; save PCA results and variance plot. |
-| 13 — Sparse RP sweep | A | Follow the Gaussian RP sweep format from task 12; use fixed seeds and the shared results schema. |
-| 14 — Multi-seed RP | A | Run after tasks 12 and 13; report mean and standard deviation across seeds. |
-| 17 — Modern models | C | Coordinate with A on preprocessing/results format; run only models supported by the available environment and record any omitted model. |
-| 19 — Generalisation gap | B | Use the shared evaluation functions and training-only cross-validation; compare with the fixed KDDTest+ results. Depends on tasks 6–8 and available model outputs. |
-| 21 — Feature importance | B | Depends on A completing task 20 and saving `models/final.joblib`; state the method used and save the figure under `reports/figures/`. |
-| 27 — Streamlit dashboard | C | Continue C's existing dashboard ownership; read available `results/*.json` and connect to the API/replay outputs. |
-| 34 — Slide deck | B | Build from completed results, figures, report sections, and system demo details from A/C; label incomplete experiments honestly. |
+| **B** | **2, 4, 5, 10, 11, 14, 15, 18, 19, 21, 22, 29, 30, 31, 32** | 15 |
+| **C** | **1, 3, 6, 7, 8, 9, 12, 13, 16, 17, 20, 23, 24, 25, 26, 27, 28, 33, 35, 36** | 20 |
+| **Deferred** | **34** | — |
 
-Notes on the split:
-- A owns the shared core (`data.py`, `preprocess.py`, `models.py`, `evaluate.py`, final model). Everyone else's ML work imports from those; A should publish stable interfaces early.
-- B's reassigned feature-importance task must wait for the saved final model. B can draft the slide structure while A/C finish results, then replace placeholders with verified numbers.
-- C owns the API/dashboard integration. The modern-model task should not alter the shared data contract; record its outputs using the established JSON format.
+Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for tasks 3, 6–9, 12, 16, 20, 22, and 31 remain complete; C maintains the shared ML pipeline and model artifacts, while B maintains the error-analysis and report work. D outputs already completed by B/C (19, 21, 27) remain complete.
+
+### Handoffs and remaining work
+
+| Task | Owner | Status / handoff |
+|---|---|---|
+| 10 — PCA experiment | B | Pending; use C's shared preprocessing and save the variance curve and scores. |
+| 13 — Sparse RP sweep | C | Pending; follow task 12's format, use fixed seeds, and save results in the shared JSON schema. |
+| 14 — Multi-seed RP | B | Pending; depends on the RP sweep results from tasks 12 and 13; report mean and standard deviation. |
+| 17 — Modern models | C | Pending; run supported models with shared preprocessing/results format and note any model the environment cannot support. |
+| 19 — Generalisation gap | B | Completed; rerun only if the shared pipeline or data contract changes. |
+| 20 — Final model | C | Existing model code and checkpoint are present, but the checkpoint currently fails to load under scikit-learn 1.7.2 because it was saved with 1.6.1. Regenerate it with the agreed environment and verify the API integration. |
+| 21 — Feature importance | B | Initial figure/results are complete from the documented configuration retrained in memory. Regenerate from C's compatible checkpoint when task 20 is fixed. |
+| 27 — Streamlit dashboard | C | Existing implementation; continue integration with API/replay and available results. |
+| 29 — Integration tests | B | Data/overlap checks pass. Rerun API/model checks after C resolves task 20 and the app imports successfully. |
+| 34 — Slide deck | Deferred | Prepare later when the team is ready to make slides. |
+
+Notes on ownership:
+- C takes maintenance of shared `data.py`, `preprocess.py`, `models.py`, `evaluate.py`, and final-model code so B's remaining experiments can use stable interfaces.
+- B keeps the bounded experiment, analysis, testing, figures, and report tasks that build on B's existing project contributions.
+- C owns API/dashboard integration and the shared model-version repair. B reruns the dependent checks after that handoff.
 - Keep changes scoped to each owner's files and coordinate shared-file edits before making them.
 
 ---
@@ -192,18 +193,18 @@ Notes on the split:
 
 **Saturday (today)**
 - Morning (first 1 hr, all): read the paper together, confirm contracts in section 4, C creates the repo (1).
-- Early: 2, 4 (B), 7, 8 (A), 23 (C).
-- Midday: 3, 5, 6 (A, B), 24 (C).
-- Night: 9 done (A). Checkpoint: data loads, Experiment 1 table exists, API returns dummy predictions.
+- Early: 2, 4 (B), 7, 8 (C), 23 (C).
+- Midday: 3, 6 (C), 5 (B), 24 (C).
+- Night: 9 done (C). Checkpoint: data loads, Experiment 1 table exists, API returns dummy predictions.
 
 **Sunday**
 - Morning to afternoon: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 all in parallel. 25, 26, 27 for the system side.
-- Hard stop for experiments at 6 pm. A completes 20 (`final.joblib`) and C swaps the dummy model for the real one.
+- Hard stop for experiments at 6 pm. C owns task 20 (`final.joblib`) and swaps the dummy model for the compatible final model.
 - Night checkpoint: replay streams real KDDTest+ flows through the API and the dashboard shows real predictions.
 
 **Monday**
 - Morning: 21, 22 (analysis), 30 (figures), 29 (tests), 27 polish.
-- Afternoon: 31, 32, 33 (report), 34 (slides), 36 (viva doc).
+- Afternoon: 31, 32, 33 (report), 36 (viva doc). Task 34 (slides) is deferred for later.
 - Evening: 28 fresh clone test, 35 demo dry run and recording. **Freeze.**
 
 **Tuesday**
@@ -250,7 +251,7 @@ Notes on the split:
 |---|---|
 | sklearn results differ from the paper | Expected. Report both, explain Weka vs sklearn differences, do not tune to match |
 | PART and BayesNet unavailable | Task 11 via Weka GUI, otherwise state the substitution clearly |
-| Someone blocked on shared code | Use stand ins (dummy model, example JSONs). A is the unblock owner, ask within 20 minutes |
+| Someone blocked on shared code | Use stand ins (dummy model, example JSONs). C is the shared-code unblock owner; coordinate promptly. |
 | Integration surprises on Monday | Real model plugged in Sunday evening, not Monday |
 | Not enough time | Cut in this order: 17 (modern models), 18 (kbest), 21 (SHAP), 11 (Weka), dashboard polish |
 
@@ -266,5 +267,6 @@ Notes on the split:
 - [ ] 5 class results with per attack recall and error analysis
 - [ ] `models/final.joblib` loads in the API and dashboard shows live predictions
 - [ ] Fresh clone runs from README instructions
-- [ ] Report PDF, slides, backup demo recording
+- [ ] Report PDF and backup demo recording
+- [ ] Slide deck (task 34; deferred until later)
 - [ ] Every member can explain the full pipeline, not only their own tasks
