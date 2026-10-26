@@ -14,46 +14,55 @@ API_URL = st.sidebar.text_input("API address", "http://127.0.0.1:8000").rstrip("
 st.title("Network Intrusion Detection System")
 st.caption("NSL-KDD replay monitor — predictions are based on replayed benchmark flows, not live packet capture.")
 
-try:
-    health = requests.get(f"{API_URL}/health", timeout=2).json()
-    stats = requests.get(f"{API_URL}/stats", timeout=2).json()
-    live = True
-except requests.RequestException:
-    health, stats, live = {}, {}, False
-
-status_col, model_col, total_col, rate_col = st.columns(4)
-status_col.metric("Service", "Online" if live else "Offline")
-model_col.metric("Model", health.get("model_version", "—"))
-total_col.metric("Flows processed", stats.get("total_flows", 0))
-rate_col.metric("Alert rate", f"{stats.get('alert_rate', 0):.1%}")
-
 live_tab, metrics_tab = st.tabs(["Live alerts", "Model metrics"])
-with live_tab:
+
+
+@st.fragment(run_every="10s")
+def render_live_panel():
+    try:
+        health = requests.get(f"{API_URL}/health", timeout=2).json()
+        stats = requests.get(f"{API_URL}/stats", timeout=2).json()
+        timeline = requests.get(f"{API_URL}/timeline", params={"minutes": 10}, timeout=2).json()["minutes"]
+        recent = requests.get(f"{API_URL}/alerts", params={"limit": 10}, timeout=5).json().get("alerts", [])
+    except requests.RequestException:
+        st.warning("API is offline. Start it with run.bat to view live alerts.")
+        return
+
+    status_col, model_col, total_col, rate_col = st.columns(4)
+    status_col.metric("Service", "Online")
+    model_col.metric("Model", health.get("model_version", "—"))
+    total_col.metric("Flows processed", stats.get("total_flows", 0))
+    rate_col.metric("Alert rate", f"{stats.get('alert_rate', 0):.1%}")
+
     st.subheader("Predicted flows by class")
     counts = stats.get("counts_per_label", {})
-    if counts:
-        st.bar_chart(pd.Series(counts, name="Flows"))
+    if any(counts.values()):
+        st.bar_chart(pd.Series(counts, name="Flows"), height=260)
     else:
         st.info("No predictions have been received yet.")
 
     st.subheader("Recent attack alerts")
-    if live:
-        try:
-            records = requests.get(f"{API_URL}/alerts", params={"limit": 100}, timeout=5).json().get("alerts", [])
-            if records:
-                alert_frame = pd.DataFrame(records)
-                alert_frame["timestamp"] = pd.to_datetime(alert_frame["timestamp"], errors="coerce", utc=True)
-                alert_frame["confidence"] = pd.to_numeric(alert_frame["confidence"], errors="coerce")
-                by_time = alert_frame.dropna(subset=["timestamp"]).set_index("timestamp").resample("1min").size()
-                st.caption("Alerts per minute")
-                st.line_chart(by_time)
-                st.dataframe(alert_frame[["timestamp", "label", "confidence"]], use_container_width=True, hide_index=True)
-            else:
-                st.info("No attack predictions yet. Start replay with: python -m app.replay --limit 300")
-        except requests.RequestException as exc:
-            st.error(f"Could not read alerts: {exc}")
+    st.caption("Alerts per minute · rolling 10-minute window · refreshes every 10 seconds")
+    timeline_frame = pd.DataFrame(timeline)
+    if not timeline_frame.empty:
+        timeline_frame["minute"] = pd.to_datetime(timeline_frame["timestamp"], utc=True).dt.tz_convert("Asia/Kolkata")
+        timeline_frame = timeline_frame.set_index("minute").rename(columns={"count": "Attack alerts"})
+        timeline_frame.index.name = "Minute (local time)"
+        st.bar_chart(timeline_frame[["Attack alerts"]], height=300, x_label="Minute", y_label="Attack alerts")
     else:
-        st.warning("Start the API with run.bat to view live alerts.")
+        st.info("No alert timeline is available yet.")
+
+    if recent:
+        alert_frame = pd.DataFrame(recent)
+        alert_frame["timestamp"] = pd.to_datetime(alert_frame["timestamp"], errors="coerce", utc=True).dt.tz_convert("Asia/Kolkata")
+        alert_frame["confidence"] = pd.to_numeric(alert_frame["confidence"], errors="coerce")
+        st.dataframe(alert_frame[["timestamp", "label", "confidence"]], use_container_width=True, hide_index=True)
+    else:
+        st.info("No attack predictions yet. Start replay with: python -m app.replay --limit 300")
+
+
+with live_tab:
+    render_live_panel()
 
 with metrics_tab:
     st.subheader("Saved experiment results")
@@ -82,4 +91,3 @@ with metrics_tab:
 if st.sidebar.button("Refresh data"):
     st.rerun()
 st.sidebar.caption("Alert history is in memory and resets when the API restarts.")
-

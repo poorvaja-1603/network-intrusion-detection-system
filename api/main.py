@@ -1,6 +1,6 @@
 """FastAPI inference service and in-memory alert feed for NSL-KDD flows."""
 from collections import Counter, deque
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from threading import Lock
 from time import perf_counter
@@ -85,6 +85,24 @@ def get_alerts(limit: int = Query(default=50, ge=1, le=500)):
         return {"alerts": list(alerts)[:limit]}
 
 
+@app.get("/timeline")
+def get_timeline(minutes: int = Query(default=10, ge=1, le=60)):
+    now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+    first_minute = now - timedelta(minutes=minutes - 1)
+    counts = {
+        (first_minute + timedelta(minutes=index)).isoformat(): 0
+        for index in range(minutes)
+    }
+    with store_lock:
+        alert_snapshot = list(alerts)
+    for alert in alert_snapshot:
+        timestamp = datetime.fromisoformat(alert["timestamp"]).astimezone(timezone.utc)
+        bucket = timestamp.replace(second=0, microsecond=0).isoformat()
+        if bucket in counts:
+            counts[bucket] += 1
+    return {"minutes": [{"timestamp": timestamp, "count": count} for timestamp, count in counts.items()]}
+
+
 @app.get("/stats")
 def get_stats():
     with store_lock:
@@ -96,4 +114,3 @@ def get_stats():
         "total_flows": count,
         "alert_rate": round(attacks / count, 6) if count else 0.0,
     }
-

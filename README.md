@@ -4,7 +4,7 @@ Reproducing and extending Nabi & Zhou (2024), *Enhancing intrusion detection sys
 
 ## Run the system demo (Windows)
 
-Double-click `run.bat` (or run it from a terminal). On first launch it creates `.venv`, installs the demo dependencies, creates `models/dummy.joblib` when the trained model is not present, then starts the FastAPI service and Streamlit dashboard. The API prefers `models/final.joblib`; `GET /health` reports `model_version: v1` when the trained model is active. It uses `models/dummy.joblib` only when the final model is absent. The dummy emits repeatable random labels for interface demonstration only; its metrics must not be reported. The demo environment pins scikit-learn 1.6.1 to match the saved model.
+Double-click `run.bat` (or run it from a terminal). On first launch it creates `.venv`, installs the demo dependencies, creates `models/dummy.joblib` when the trained model is not present, then starts the FastAPI service and Streamlit dashboard. The API prefers `models/final.joblib`; `GET /health` reports `model_version: v1` when the trained model is active. It uses `models/dummy.joblib` only when the final model is absent. The dummy emits repeatable random labels for interface demonstration only; its metrics must not be reported. The demo environment pins scikit-learn 1.6.1 to match the saved model. The live dashboard refreshes every 10 seconds and shows alert totals for each minute in the rolling 10-minute window.
 
 In a second terminal, replay benchmark flows:
 
