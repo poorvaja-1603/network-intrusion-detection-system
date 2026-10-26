@@ -178,7 +178,7 @@ Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for task
 | 20 — Final model | C | Completed; regenerated under scikit-learn 1.6.1, saved `models/final.joblib`, and verified API `v1` predictions on five raw rows. |
 | 21 — Feature importance | B | Initial figure/results are complete; regenerate from C's rebuilt compatible checkpoint. |
 | 27 — Streamlit dashboard | C | Completed; live stats, alert feed, rolling minute timeline, and experiment metrics are integrated with the API. |
-| 28 — Fresh-clone launcher check | C | Pending; verify run.bat from a clean clone after the current changes are committed. |
+| 28 — Fresh-clone launcher check | C | Partial; a clean local clone loaded the pinned final model and predicted on five rows, but installing dependencies in the clone failed because this environment could not reach the package index. |
 | 29 — Integration tests | B | Data/overlap checks pass. C's API/model smoke check passes with the rebuilt checkpoint; B's suite should rerun after handoff. |
 | 35 — Backup demo recording | C | Pending; the three-minute walkthrough is documented, but the requested two-minute screen recording is not yet in the repository. |
 | 34 — Slide deck | Deferred | Prepare later when the team is ready to make slides. |
