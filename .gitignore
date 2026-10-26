@@ -27,10 +27,6 @@ data/*.csv
 data/*.txt
 data/*.arff
 
-# Models (large binary files)
-models/*.joblib
-models/*.pkl
-
 # OS
 .DS_Store
 Thumbs.db
