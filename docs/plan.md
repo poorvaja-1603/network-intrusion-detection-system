@@ -171,14 +171,16 @@ Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for task
 | Task | Owner | Status / handoff |
 |---|---|---|
 | 10 — PCA experiment | B | Pending; use C's shared preprocessing and save the variance curve and scores. |
-| 13 — Sparse RP sweep | C | Pending; follow task 12's format, use fixed seeds, and save results in the shared JSON schema. |
+| 13 — Sparse RP sweep | C | Completed; 27 model/dimension results saved to `results/exp3_rp_sparse_sweep.json` using seed 42. |
 | 14 — Multi-seed RP | B | Pending; depends on the RP sweep results from tasks 12 and 13; report mean and standard deviation. |
-| 17 — Modern models | C | Pending; run supported models with shared preprocessing/results format and note any model the environment cannot support. |
+| 17 — Modern models | C | Completed; XGBoost 3.4.1 and MLP run on full and 5-D Gaussian RP; results saved to `results/exp6_modern.json`. |
 | 19 — Generalisation gap | B | Completed; rerun only if the shared pipeline or data contract changes. |
-| 20 — Final model | C | Existing model code and checkpoint are present, but the checkpoint currently fails to load under scikit-learn 1.7.2 because it was saved with 1.6.1. Regenerate it with the agreed environment and verify the API integration. |
-| 21 — Feature importance | B | Initial figure/results are complete from the documented configuration retrained in memory. Regenerate from C's compatible checkpoint when task 20 is fixed. |
-| 27 — Streamlit dashboard | C | Existing implementation; continue integration with API/replay and available results. |
-| 29 — Integration tests | B | Data/overlap checks pass. Rerun API/model checks after C resolves task 20 and the app imports successfully. |
+| 20 — Final model | C | Completed; regenerated under scikit-learn 1.6.1, saved `models/final.joblib`, and verified API `v1` predictions on five raw rows. |
+| 21 — Feature importance | B | Initial figure/results are complete; regenerate from C's rebuilt compatible checkpoint. |
+| 27 — Streamlit dashboard | C | Completed; live stats, alert feed, rolling minute timeline, and experiment metrics are integrated with the API. |
+| 28 — Fresh-clone launcher check | C | Pending; verify run.bat from a clean clone after the current changes are committed. |
+| 29 — Integration tests | B | Data/overlap checks pass. C's API/model smoke check passes with the rebuilt checkpoint; B's suite should rerun after handoff. |
+| 35 — Backup demo recording | C | Pending; the three-minute walkthrough is documented, but the requested two-minute screen recording is not yet in the repository. |
 | 34 — Slide deck | Deferred | Prepare later when the team is ready to make slides. |
 
 Notes on ownership:
