@@ -87,8 +87,8 @@
       "support": 22544.0
     }
   },
-  "fit_seconds": 4.953,
-  "predict_seconds": 0.379,
+  "fit_seconds": 3.423,
+  "predict_seconds": 0.281,
   "classes": [
     "dos",
     "normal",

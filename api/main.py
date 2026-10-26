@@ -18,7 +18,7 @@ from src.data import FEATURE_COLUMNS
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = ROOT / "models" / "final.joblib"
 DUMMY_PATH = ROOT / "models" / "dummy.joblib"
-ALERT_LIMIT = 5000
+ALERT_LIMIT = 10000
 
 
 def load_model():
@@ -80,27 +80,63 @@ def predict(request: PredictRequest):
 
 
 @app.get("/alerts")
-def get_alerts(limit: int = Query(default=50, ge=1, le=500)):
+def get_alerts(limit: int = Query(default=100, ge=1, le=5000)):
     with store_lock:
-        return {"alerts": list(alerts)[:limit]}
+        return {"alerts": list(alerts)[:limit], "total_alerts": len(alerts)}
+
+
+@app.post("/reset")
+def reset_stats():
+    global total_flows
+    with store_lock:
+        alerts.clear()
+        label_counts.clear()
+        total_flows = 0
+    return {"status": "ok", "message": "All alerts and traffic statistics reset successfully"}
 
 
 @app.get("/timeline")
-def get_timeline(minutes: int = Query(default=10, ge=1, le=60)):
-    now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
-    first_minute = now - timedelta(minutes=minutes - 1)
-    counts = {
-        (first_minute + timedelta(minutes=index)).isoformat(): 0
-        for index in range(minutes)
-    }
-    with store_lock:
-        alert_snapshot = list(alerts)
-    for alert in alert_snapshot:
-        timestamp = datetime.fromisoformat(alert["timestamp"]).astimezone(timezone.utc)
-        bucket = timestamp.replace(second=0, microsecond=0).isoformat()
-        if bucket in counts:
-            counts[bucket] += 1
-    return {"minutes": [{"timestamp": timestamp, "count": count} for timestamp, count in counts.items()]}
+def get_timeline(
+    minutes: int = Query(default=10, ge=1, le=60),
+    seconds: int = Query(default=60, ge=5, le=300),
+    granularity: str = Query(default="seconds")
+):
+    now = datetime.now(timezone.utc)
+    if granularity == "seconds":
+        now_sec = now.replace(microsecond=0)
+        counts = {
+            (now_sec - timedelta(seconds=i)).isoformat(): 0
+            for i in reversed(range(seconds))
+        }
+        with store_lock:
+            alert_snapshot = list(alerts)
+        for alert in alert_snapshot:
+            try:
+                ts = datetime.fromisoformat(alert["timestamp"]).astimezone(timezone.utc).replace(microsecond=0).isoformat()
+                if ts in counts:
+                    counts[ts] += 1
+            except Exception:
+                pass
+        timeline_list = [{"timestamp": k, "count": v} for k, v in counts.items()]
+        return {"minutes": timeline_list, "timeline": timeline_list, "granularity": "seconds"}
+    else:
+        first_minute = now.replace(second=0, microsecond=0) - timedelta(minutes=minutes - 1)
+        counts = {
+            (first_minute + timedelta(minutes=index)).isoformat(): 0
+            for index in range(minutes)
+        }
+        with store_lock:
+            alert_snapshot = list(alerts)
+        for alert in alert_snapshot:
+            try:
+                timestamp = datetime.fromisoformat(alert["timestamp"]).astimezone(timezone.utc)
+                bucket = timestamp.replace(second=0, microsecond=0).isoformat()
+                if bucket in counts:
+                    counts[bucket] += 1
+            except Exception:
+                pass
+        timeline_list = [{"timestamp": timestamp, "count": count} for timestamp, count in counts.items()]
+        return {"minutes": timeline_list, "timeline": timeline_list, "granularity": "minutes"}
 
 
 @app.get("/stats")
