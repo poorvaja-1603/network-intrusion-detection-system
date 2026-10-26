@@ -1,0 +1,1506 @@
+{
+  "experiment": "pca_scaled_vs_unscaled",
+  "seed": 42,
+  "train_rows": 125973,
+  "test_rows": 22544,
+  "test_split": "official KDDTest+; fixed evaluation only",
+  "preprocessing_note": "Scaled: numeric columns standardized and categoricals one-hot encoded. Unscaled: numeric columns left in original units and categoricals one-hot encoded. Both preprocessors and PCA transforms are fitted on KDDTrain+ only.",
+  "first_component_claim": {
+    "paper_reported_percent": 92.0,
+    "scaled_percent": 19.243327323923793,
+    "unscaled_percent": 68.06209008261511,
+    "interpretation": "Variance explained is descriptive and does not establish classification quality."
+  },
+  "variance": {
+    "scaled": {
+      "input_features": 122,
+      "explained_variance_ratio": [
+        0.19243327323923792,
+        0.12910016202782706,
+        0.07262721421158275,
+        0.05196183727123881,
+        0.04943200704796267,
+        0.045657875386725284,
+        0.03497386100759679,
+        0.03302422650695292,
+        0.029053528506340902,
+        0.02811482484581832,
+        0.026477889839710455,
+        0.026001986577515023,
+        0.025824636984889526,
+        0.02581956779798197,
+        0.02559184428842794,
+        0.025483336050986235,
+        0.024001845156303114,
+        0.02328737126867883,
+        0.01789319585765479,
+        0.01563818647892376,
+        0.014256801323593481,
+        0.012315708458137018,
+        0.011458241388914603,
+        0.010071380779303567,
+        0.008422209164497972,
+        0.00809224336125999,
+        0.005207620599685787,
+        0.0035894502791561605,
+        0.002940472436739429,
+        0.002543102787898472
+      ],
+      "cumulative_explained_variance": [
+        0.19243327323923792,
+        0.321533435267065,
+        0.39416064947864776,
+        0.4461224867498866,
+        0.49555449379784927,
+        0.5412123691845746,
+        0.5761862301921714,
+        0.6092104566991243,
+        0.6382639852054652,
+        0.6663788100512835,
+        0.692856699890994,
+        0.718858686468509,
+        0.7446833234533986,
+        0.7705028912513806,
+        0.7960947355398086,
+        0.8215780715907948,
+        0.8455799167470979,
+        0.8688672880157767,
+        0.8867604838734315,
+        0.9023986703523553,
+        0.9166554716759489,
+        0.9289711801340859,
+        0.9404294215230005,
+        0.950500802302304,
+        0.958923011466802,
+        0.967015254828062,
+        0.9722228754277479,
+        0.975812325706904,
+        0.9787527981436435,
+        0.981295900931542
+      ],
+      "first_component_variance": 0.19243327323923792,
+      "pca_fit_seconds": 1.2272111249999398
+    },
+    "unscaled": {
+      "input_features": 122,
+      "explained_variance_ratio": [
+        0.6806209008261511,
+        0.3193789652061335,
+        1.3315012165833882e-07,
+        4.236974961830816e-10,
+        2.0238318174992592e-10,
+        1.243815006456391e-10,
+        4.396435836529885e-11,
+        2.3011976445643342e-11,
+        9.04580682460607e-14,
+        1.494656317394077e-14,
+        1.3503524716009645e-14,
+        6.516973847318033e-15,
+        5.368001577606267e-15,
+        4.534935991871851e-15,
+        2.6655346050907365e-15,
+        2.286540433112958e-15,
+        1.782367193149671e-15,
+        1.2547097611488642e-15,
+        1.1231293398451798e-15,
+        1.0562703294927146e-15,
+        8.291400779819408e-16,
+        7.021223148799106e-16,
+        5.21738089621623e-16,
+        5.04079197336648e-16,
+        4.3482444426956413e-16,
+        3.6861723309984985e-16,
+        3.2563754261799057e-16,
+        3.0074706495487685e-16,
+        2.9274897281210824e-16,
+        2.662319068297253e-16
+      ],
+      "cumulative_explained_variance": [
+        0.6806209008261511,
+        0.9999998660322846,
+        0.9999999991824063,
+        0.9999999996061039,
+        0.9999999998084871,
+        0.9999999999328686,
+        0.999999999976833,
+        0.9999999999998449,
+        0.9999999999999354,
+        0.9999999999999504,
+        0.9999999999999639,
+        0.9999999999999705,
+        0.9999999999999758,
+        0.9999999999999803,
+        0.999999999999983,
+        0.9999999999999853,
+        0.9999999999999871,
+        0.9999999999999883,
+        0.9999999999999895,
+        0.9999999999999906,
+        0.9999999999999913,
+        0.999999999999992,
+        0.9999999999999926,
+        0.9999999999999931,
+        0.9999999999999936,
+        0.9999999999999939,
+        0.9999999999999942,
+        0.9999999999999946,
+        0.9999999999999949,
+        0.9999999999999951
+      ],
+      "first_component_variance": 0.6806209008261511,
+      "pca_fit_seconds": 1.2359269160001531
+    }
+  },
+  "results": [
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 0.00383141699967382,
+      "accuracy": 0.7507540809084458,
+      "fpr": 0.032231490062815366,
+      "precision": 0.9600765306122448,
+      "recall": 0.5865347151874075,
+      "f1": 0.7281961979393412,
+      "macro_f1": 0.749025397761397,
+      "confusion_matrix": [
+        [
+          9398,
+          313
+        ],
+        [
+          5306,
+          7527
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 0.48246483399998397,
+      "accuracy": 0.7407292405961675,
+      "fpr": 0.10688909484090207,
+      "precision": 0.8854810238305384,
+      "recall": 0.6254188420478454,
+      "f1": 0.7330684568662373,
+      "macro_f1": 0.740515514276765,
+      "confusion_matrix": [
+        [
+          8673,
+          1038
+        ],
+        [
+          4807,
+          8026
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 4.2162559160001365,
+      "accuracy": 0.7408179559971612,
+      "fpr": 0.10688909484090207,
+      "precision": 0.885506287227002,
+      "recall": 0.6255746902516949,
+      "f1": 0.7331841636604411,
+      "macro_f1": 0.7406056227332349,
+      "confusion_matrix": [
+        [
+          8673,
+          1038
+        ],
+        [
+          4805,
+          8028
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 0.00657770799989521,
+      "accuracy": 0.7679205110007097,
+      "fpr": 0.029245185871691896,
+      "precision": 0.9652344228179703,
+      "recall": 0.6144315436764591,
+      "f1": 0.7508808684887154,
+      "macro_f1": 0.7668296229847048,
+      "confusion_matrix": [
+        [
+          9427,
+          284
+        ],
+        [
+          4948,
+          7885
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 0.24896300000000338,
+      "accuracy": 0.7671220723917672,
+      "fpr": 0.04119040263618577,
+      "precision": 0.9522843850650126,
+      "recall": 0.6220681056650822,
+      "f1": 0.7525452488687783,
+      "macro_f1": 0.7663111633083838,
+      "confusion_matrix": [
+        [
+          9311,
+          400
+        ],
+        [
+          4850,
+          7983
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 2.252738583000337,
+      "accuracy": 0.7587828246983677,
+      "fpr": 0.0350118422407579,
+      "precision": 0.9578947368421052,
+      "recall": 0.6027429283877503,
+      "f1": 0.7399081691218672,
+      "macro_f1": 0.7575057801771453,
+      "confusion_matrix": [
+        [
+          9371,
+          340
+        ],
+        [
+          5098,
+          7735
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 0.008366875000319851,
+      "accuracy": 0.7919623846699787,
+      "fpr": 0.05076717124909896,
+      "precision": 0.9459962756052142,
+      "recall": 0.6729525442219279,
+      "f1": 0.7864493215554139,
+      "macro_f1": 0.7918236402812959,
+      "confusion_matrix": [
+        [
+          9218,
+          493
+        ],
+        [
+          4197,
+          8636
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 0.30836349999981394,
+      "accuracy": 0.7680535841022001,
+      "fpr": 0.04932550715683246,
+      "precision": 0.944055127306704,
+      "recall": 0.6298605158575548,
+      "f1": 0.7555971021266651,
+      "macro_f1": 0.7674495028212357,
+      "confusion_matrix": [
+        [
+          9232,
+          479
+        ],
+        [
+          4750,
+          8083
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 1.976657791999969,
+      "accuracy": 0.7500887154009936,
+      "fpr": 0.06878797240243023,
+      "precision": 0.921734036321031,
+      "recall": 0.613028909841814,
+      "f1": 0.7363347061025833,
+      "macro_f1": 0.7494068134222867,
+      "confusion_matrix": [
+        [
+          9043,
+          668
+        ],
+        [
+          4966,
+          7867
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 0.008060874999955558,
+      "accuracy": 0.7969748048261178,
+      "fpr": 0.052002883328184535,
+      "precision": 0.9454996762357004,
+      "recall": 0.6826930569625185,
+      "f1": 0.792886555952758,
+      "macro_f1": 0.7968956682499881,
+      "confusion_matrix": [
+        [
+          9206,
+          505
+        ],
+        [
+          4072,
+          8761
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 0.44256875000019136,
+      "accuracy": 0.768097941802697,
+      "fpr": 0.07136237256719184,
+      "precision": 0.9229229229229229,
+      "recall": 0.6466141977713706,
+      "f1": 0.7604472140762464,
+      "macro_f1": 0.7678611586199664,
+      "confusion_matrix": [
+        [
+          9018,
+          693
+        ],
+        [
+          4535,
+          8298
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 3.371581542000058,
+      "accuracy": 0.7617547906316536,
+      "fpr": 0.06363917207290701,
+      "precision": 0.9289491837203955,
+      "recall": 0.6296267435517806,
+      "f1": 0.7505457247689378,
+      "macro_f1": 0.7612727774840147,
+      "confusion_matrix": [
+        [
+          9093,
+          618
+        ],
+        [
+          4753,
+          8080
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 0.009464833000038197,
+      "accuracy": 0.8094836763662172,
+      "fpr": 0.0581814437236124,
+      "precision": 0.9415597848572611,
+      "recall": 0.7093430998207746,
+      "f1": 0.8091195946846806,
+      "macro_f1": 0.8094829832457361,
+      "confusion_matrix": [
+        [
+          9146,
+          565
+        ],
+        [
+          3730,
+          9103
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 0.5454631249999693,
+      "accuracy": 0.7511976579134138,
+      "fpr": 0.07156832458037277,
+      "precision": 0.9193173902948688,
+      "recall": 0.6170809631418998,
+      "f1": 0.7384715811069147,
+      "macro_f1": 0.7506071369432039,
+      "confusion_matrix": [
+        [
+          9016,
+          695
+        ],
+        [
+          4914,
+          7919
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 3.304107208000005,
+      "accuracy": 0.7507984386089425,
+      "fpr": 0.06508083616517352,
+      "precision": 0.9254629083618351,
+      "recall": 0.6114704278033196,
+      "f1": 0.7363926426426426,
+      "macro_f1": 0.7500519740804061,
+      "confusion_matrix": [
+        [
+          9079,
+          632
+        ],
+        [
+          4986,
+          7847
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 0.013388792000114336,
+      "accuracy": 0.8202625975869411,
+      "fpr": 0.11389146328905365,
+      "precision": 0.8993905212407896,
+      "recall": 0.7704355957297592,
+      "f1": 0.8299336858893646,
+      "macro_f1": 0.8196794758108285,
+      "confusion_matrix": [
+        [
+          8605,
+          1106
+        ],
+        [
+          2946,
+          9887
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 1.1462912919996597,
+      "accuracy": 0.748624911284599,
+      "fpr": 0.0668314282772114,
+      "precision": 0.9233223062381852,
+      "recall": 0.6089768565417284,
+      "f1": 0.7339061839695732,
+      "macro_f1": 0.7478534324496683,
+      "confusion_matrix": [
+        [
+          9062,
+          649
+        ],
+        [
+          5018,
+          7815
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 4.944247916000222,
+      "accuracy": 0.7430801987224982,
+      "fpr": 0.06662547626403048,
+      "precision": 0.922375524895021,
+      "recall": 0.5990804955972883,
+      "f1": 0.7263794406651549,
+      "macro_f1": 0.7421194862188651,
+      "confusion_matrix": [
+        [
+          9064,
+          647
+        ],
+        [
+          5145,
+          7688
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 0.016884707999906823,
+      "accuracy": 0.8018097941802697,
+      "fpr": 0.08680877355576151,
+      "precision": 0.916127748482738,
+      "recall": 0.7175251305228707,
+      "f1": 0.8047544135640622,
+      "macro_f1": 0.8017647045301846,
+      "confusion_matrix": [
+        [
+          8868,
+          843
+        ],
+        [
+          3625,
+          9208
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 1.7319897919996947,
+      "accuracy": 0.7370475514549326,
+      "fpr": 0.06961178045515395,
+      "precision": 0.9181300714545234,
+      "recall": 0.5907426166913426,
+      "f1": 0.7189189189189189,
+      "macro_f1": 0.7359491669350824,
+      "confusion_matrix": [
+        [
+          9035,
+          676
+        ],
+        [
+          5252,
+          7581
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 5.221520291000161,
+      "accuracy": 0.7290631653655074,
+      "fpr": 0.05910822778292658,
+      "precision": 0.9270925949447478,
+      "recall": 0.5687680199485701,
+      "f1": 0.705013039698638,
+      "macro_f1": 0.7272501832075341,
+      "confusion_matrix": [
+        [
+          9137,
+          574
+        ],
+        [
+          5534,
+          7299
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 0.031756625000070926,
+      "accuracy": 0.8059794180269695,
+      "fpr": 0.10874266295953043,
+      "precision": 0.9001040582726326,
+      "recall": 0.7414478298137614,
+      "f1": 0.8131088702785848,
+      "macro_f1": 0.8056966598210854,
+      "confusion_matrix": [
+        [
+          8655,
+          1056
+        ],
+        [
+          3318,
+          9515
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 2.7604247499998564,
+      "accuracy": 0.7350514549325763,
+      "fpr": 0.06806714035629698,
+      "precision": 0.9192129063798582,
+      "recall": 0.5860671705758591,
+      "f1": 0.7157744468236974,
+      "macro_f1": 0.7338270730359089,
+      "confusion_matrix": [
+        [
+          9050,
+          661
+        ],
+        [
+          5312,
+          7521
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 8.840736249999736,
+      "accuracy": 0.7327448545067423,
+      "fpr": 0.05807846771702194,
+      "precision": 0.9289314516129032,
+      "recall": 0.5744564793890751,
+      "f1": 0.7099041841205643,
+      "macro_f1": 0.7310777551220857,
+      "confusion_matrix": [
+        [
+          9147,
+          564
+        ],
+        [
+          5461,
+          7372
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 0.04175000000032014,
+      "accuracy": 0.8027856635911994,
+      "fpr": 0.14828544949026876,
+      "precision": 0.872193130380758,
+      "recall": 0.7657601496142757,
+      "f1": 0.8155186721991701,
+      "macro_f1": 0.8018416688611631,
+      "confusion_matrix": [
+        [
+          8271,
+          1440
+        ],
+        [
+          3006,
+          9827
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 3.9401899579997917,
+      "accuracy": 0.7498669268985095,
+      "fpr": 0.0660076202244877,
+      "precision": 0.9243747050495517,
+      "recall": 0.6105353385802229,
+      "f1": 0.7353700314421137,
+      "macro_f1": 0.7491140076887595,
+      "confusion_matrix": [
+        [
+          9070,
+          641
+        ],
+        [
+          4998,
+          7835
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "scaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 9.228854417000093,
+      "accuracy": 0.7339425124201562,
+      "fpr": 0.0628153640201833,
+      "precision": 0.9242706393544382,
+      "recall": 0.58014493882958,
+      "f1": 0.7128494829567216,
+      "macro_f1": 0.73249912164365,
+      "confusion_matrix": [
+        [
+          9101,
+          610
+        ],
+        [
+          5388,
+          7445
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 0.0028992920001655875,
+      "accuracy": 0.43071327182398866,
+      "fpr": 0.0004119040263618577,
+      "precision": 0.42857142857142855,
+      "recall": 0.00023377230577417596,
+      "f1": 0.00046728971962616824,
+      "macro_f1": 0.3012445602654196,
+      "confusion_matrix": [
+        [
+          9707,
+          4
+        ],
+        [
+          12830,
+          3
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 0.12323825000021316,
+      "accuracy": 0.7664123491838183,
+      "fpr": 0.0382040984450623,
+      "precision": 0.9553496208930076,
+      "recall": 0.6185615210784696,
+      "f1": 0.7509223346892442,
+      "macro_f1": 0.7655054336103868,
+      "confusion_matrix": [
+        [
+          9340,
+          371
+        ],
+        [
+          4895,
+          7938
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 1,
+      "seed": 42,
+      "fit_seconds": 1.2017742090001775,
+      "accuracy": 0.7663679914833215,
+      "fpr": 0.03830707445165277,
+      "precision": 0.9552346570397112,
+      "recall": 0.6185615210784696,
+      "f1": 0.7508868183323085,
+      "macro_f1": 0.7654622022336005,
+      "confusion_matrix": [
+        [
+          9339,
+          372
+        ],
+        [
+          4895,
+          7938
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 0.006123749999915162,
+      "accuracy": 0.4302253371185238,
+      "fpr": 0.0016476161054474307,
+      "precision": 0.2,
+      "recall": 0.00031169640769890126,
+      "f1": 0.0006224227806737727,
+      "macro_f1": 0.30107125482139013,
+      "confusion_matrix": [
+        [
+          9695,
+          16
+        ],
+        [
+          12829,
+          4
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 0.14040616700003739,
+      "accuracy": 0.781360894251242,
+      "fpr": 0.04201421068890948,
+      "precision": 0.9532110091743119,
+      "recall": 0.6477051351983169,
+      "f1": 0.7713079385700367,
+      "macro_f1": 0.7809375894252351,
+      "confusion_matrix": [
+        [
+          9303,
+          408
+        ],
+        [
+          4521,
+          8312
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 2,
+      "seed": 42,
+      "fit_seconds": 1.1047412500001883,
+      "accuracy": 0.7758605393896381,
+      "fpr": 0.041602306662547626,
+      "precision": 0.9529576152771309,
+      "recall": 0.637730850151952,
+      "f1": 0.76410998552822,
+      "macro_f1": 0.7753029751868927,
+      "confusion_matrix": [
+        [
+          9307,
+          404
+        ],
+        [
+          4649,
+          8184
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 0.00797308300025179,
+      "accuracy": 0.45031937544357703,
+      "fpr": 0.0032952322108948614,
+      "precision": 0.9366336633663367,
+      "recall": 0.036858100210395074,
+      "f1": 0.07092517618833408,
+      "macro_f1": 0.34031298179495445,
+      "confusion_matrix": [
+        [
+          9679,
+          32
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 0.2904174159998547,
+      "accuracy": 0.7752838892831796,
+      "fpr": 0.03398208217485326,
+      "precision": 0.9608401566393734,
+      "recall": 0.6309514532845009,
+      "f1": 0.7617121354656632,
+      "macro_f1": 0.7745525592554101,
+      "confusion_matrix": [
+        [
+          9381,
+          330
+        ],
+        [
+          4736,
+          8097
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 3,
+      "seed": 42,
+      "fit_seconds": 2.302840791000108,
+      "accuracy": 0.7790542938254081,
+      "fpr": 0.03398208217485326,
+      "precision": 0.9612312030075187,
+      "recall": 0.6375750019481026,
+      "f1": 0.7666432419770438,
+      "macro_f1": 0.7784275469456461,
+      "confusion_matrix": [
+        [
+          9381,
+          330
+        ],
+        [
+          4651,
+          8182
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 0.009048916999745416,
+      "accuracy": 0.45031937544357703,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9383697813121272,
+      "recall": 0.03678017610847035,
+      "f1": 0.07078584283143372,
+      "macro_f1": 0.34025560723078363,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12361,
+          472
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 0.3267781670001568,
+      "accuracy": 0.7823811213626686,
+      "fpr": 0.02842137781896818,
+      "precision": 0.967448991626371,
+      "recall": 0.6392114080885217,
+      "f1": 0.769801051051051,
+      "macro_f1": 0.7817292603842065,
+      "confusion_matrix": [
+        [
+          9435,
+          276
+        ],
+        [
+          4630,
+          8203
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 4,
+      "seed": 42,
+      "fit_seconds": 2.380155625000043,
+      "accuracy": 0.7661905606813343,
+      "fpr": 0.03161363402327258,
+      "precision": 0.9624510763209393,
+      "recall": 0.6131847580456635,
+      "f1": 0.7491075253462801,
+      "macro_f1": 0.7651015428965713,
+      "confusion_matrix": [
+        [
+          9404,
+          307
+        ],
+        [
+          4964,
+          7869
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 0.009589834000053088,
+      "accuracy": 0.4503637331440738,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9384920634920635,
+      "recall": 0.036858100210395074,
+      "f1": 0.07093049411411861,
+      "macro_f1": 0.34033753454406757,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 0.4392405839998901,
+      "accuracy": 0.7921841731724627,
+      "fpr": 0.02677376171352075,
+      "precision": 0.9700046146746655,
+      "recall": 0.6551858489830905,
+      "f1": 0.7821031579926515,
+      "macro_f1": 0.7917383980067976,
+      "confusion_matrix": [
+        [
+          9451,
+          260
+        ],
+        [
+          4425,
+          8408
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 5,
+      "seed": 42,
+      "fit_seconds": 2.480524417000197,
+      "accuracy": 0.7776792051100071,
+      "fpr": 0.028936257851920503,
+      "precision": 0.9664797805081713,
+      "recall": 0.6313410737941245,
+      "f1": 0.763763197586727,
+      "macro_f1": 0.7769050572384038,
+      "confusion_matrix": [
+        [
+          9430,
+          281
+        ],
+        [
+          4731,
+          8102
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 0.01217366699984268,
+      "accuracy": 0.4503637331440738,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9384920634920635,
+      "recall": 0.036858100210395074,
+      "f1": 0.07093049411411861,
+      "macro_f1": 0.34033753454406757,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 0.8410375830003431,
+      "accuracy": 0.7887686302342086,
+      "fpr": 0.06415405210585934,
+      "precision": 0.9331329827197595,
+      "recall": 0.6774721421335619,
+      "f1": 0.7850112866817156,
+      "macro_f1": 0.7887040913310923,
+      "confusion_matrix": [
+        [
+          9088,
+          623
+        ],
+        [
+          4139,
+          8694
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 10,
+      "seed": 42,
+      "fit_seconds": 4.051904917000229,
+      "accuracy": 0.7893009226401704,
+      "fpr": 0.026567809700339822,
+      "precision": 0.9699965112222352,
+      "recall": 0.6499649341541339,
+      "f1": 0.7783687943262412,
+      "macro_f1": 0.7887870349717103,
+      "confusion_matrix": [
+        [
+          9453,
+          258
+        ],
+        [
+          4492,
+          8341
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 0.01495633300010013,
+      "accuracy": 0.4503637331440738,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9384920634920635,
+      "recall": 0.036858100210395074,
+      "f1": 0.07093049411411861,
+      "macro_f1": 0.34033753454406757,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 1.249811291000242,
+      "accuracy": 0.816625266146203,
+      "fpr": 0.02903923385851097,
+      "precision": 0.9695562992551009,
+      "recall": 0.6998363593859581,
+      "f1": 0.8129073135409124,
+      "macro_f1": 0.8165528216973873,
+      "confusion_matrix": [
+        [
+          9429,
+          282
+        ],
+        [
+          3852,
+          8981
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 15,
+      "seed": 42,
+      "fit_seconds": 4.517980999999963,
+      "accuracy": 0.7796309439318666,
+      "fpr": 0.02955411389146329,
+      "precision": 0.9659912311885295,
+      "recall": 0.6352372788903607,
+      "f1": 0.766453553967657,
+      "macro_f1": 0.7789271464833247,
+      "confusion_matrix": [
+        [
+          9424,
+          287
+        ],
+        [
+          4681,
+          8152
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 0.019530791999841313,
+      "accuracy": 0.4503637331440738,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9384920634920635,
+      "recall": 0.036858100210395074,
+      "f1": 0.07093049411411861,
+      "macro_f1": 0.34033753454406757,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 1.8700739159999102,
+      "accuracy": 0.7641501064584811,
+      "fpr": 0.07300998867263928,
+      "precision": 0.9206402507275576,
+      "recall": 0.6409257383308657,
+      "f1": 0.755731152662287,
+      "macro_f1": 0.7638696070330859,
+      "confusion_matrix": [
+        [
+          9002,
+          709
+        ],
+        [
+          4608,
+          8225
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 20,
+      "seed": 42,
+      "fit_seconds": 6.275163832999624,
+      "accuracy": 0.7740862313697658,
+      "fpr": 0.034599938214396046,
+      "precision": 0.9600570613409415,
+      "recall": 0.6293150471440817,
+      "f1": 0.7602730054130383,
+      "macro_f1": 0.7733336674928296,
+      "confusion_matrix": [
+        [
+          9375,
+          336
+        ],
+        [
+          4757,
+          8076
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "NaiveBayes",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 0.03665991699972437,
+      "accuracy": 0.4503637331440738,
+      "fpr": 0.0031922562043043973,
+      "precision": 0.9384920634920635,
+      "recall": 0.036858100210395074,
+      "f1": 0.07093049411411861,
+      "macro_f1": 0.34033753454406757,
+      "confusion_matrix": [
+        [
+          9680,
+          31
+        ],
+        [
+          12360,
+          473
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "J48",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 3.1391089589997136,
+      "accuracy": 0.8016767210787793,
+      "fpr": 0.03130470600350119,
+      "precision": 0.9661092530657748,
+      "recall": 0.6752902672796696,
+      "f1": 0.7949364766316562,
+      "macro_f1": 0.8014622258614583,
+      "confusion_matrix": [
+        [
+          9407,
+          304
+        ],
+        [
+          4167,
+          8666
+        ]
+      ]
+    },
+    {
+      "experiment": "pca_sweep",
+      "model": "RandomForest",
+      "setting": "pca",
+      "preprocessing": "unscaled",
+      "n_dims": 30,
+      "seed": 42,
+      "fit_seconds": 8.226087875000303,
+      "accuracy": 0.7834900638750887,
+      "fpr": 0.02914220986510143,
+      "precision": 0.9667762385536511,
+      "recall": 0.641704979350113,
+      "f1": 0.771392440635099,
+      "macro_f1": 0.7828820483497356,
+      "confusion_matrix": [
+        [
+          9428,
+          283
+        ],
+        [
+          4598,
+          8235
+        ]
+      ]
+    }
+  ]
+}

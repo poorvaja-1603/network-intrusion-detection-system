@@ -1,0 +1,1698 @@
+{
+  "experiment": "rp_seed_stability",
+  "best_dimensions": {
+    "rp_gaussian": {
+      "NaiveBayes": 20,
+      "J48": 5,
+      "RandomForest": 2
+    },
+    "rp_sparse": {
+      "NaiveBayes": 30,
+      "J48": 10,
+      "RandomForest": 15
+    }
+  },
+  "base_seed": 42,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "train_rows": 125973,
+  "test_rows": 21880,
+  "test_file": "KDDTest+_no_train_feature_overlap.txt",
+  "test_selection_note": "For each projection and model, dimensions were selected as the highest-accuracy choice in its single-seed sweep on official KDDTest+. Repeated results use the overlap-clean subset of that same test population, so selection can make scores optimistic; treat this as a seed-variability analysis, not an unbiased estimate. The overlap-clean file excludes exact feature rows also present in KDDTrain+.",
+  "summary": {
+    "rp_gaussian/NaiveBayes": {
+      "n_dims": 20,
+      "accuracy": {
+        "mean": 0.755425,
+        "std": 0.023348
+      },
+      "fpr": {
+        "mean": 0.06878,
+        "std": 0.033769
+      },
+      "precision": {
+        "mean": 0.92155,
+        "std": 0.035775
+      },
+      "recall": {
+        "mean": 0.617843,
+        "std": 0.042217
+      },
+      "f1": {
+        "mean": 0.738574,
+        "std": 0.029839
+      },
+      "macro_f1": {
+        "mean": 0.75421,
+        "std": 0.023861
+      }
+    },
+    "rp_gaussian/J48": {
+      "n_dims": 5,
+      "accuracy": {
+        "mean": 0.759273,
+        "std": 0.017183
+      },
+      "fpr": {
+        "mean": 0.054258,
+        "std": 0.022959
+      },
+      "precision": {
+        "mean": 0.935692,
+        "std": 0.026405
+      },
+      "recall": {
+        "mean": 0.613337,
+        "std": 0.022055
+      },
+      "f1": {
+        "mean": 0.740726,
+        "std": 0.019694
+      },
+      "macro_f1": {
+        "mean": 0.757996,
+        "std": 0.017355
+      }
+    },
+    "rp_gaussian/RandomForest": {
+      "n_dims": 2,
+      "accuracy": {
+        "mean": 0.741513,
+        "std": 0.032699
+      },
+      "fpr": {
+        "mean": 0.072548,
+        "std": 0.02992
+      },
+      "precision": {
+        "mean": 0.912939,
+        "std": 0.035692
+      },
+      "recall": {
+        "mean": 0.595992,
+        "std": 0.045693
+      },
+      "f1": {
+        "mean": 0.720517,
+        "std": 0.040724
+      },
+      "macro_f1": {
+        "mean": 0.739922,
+        "std": 0.033582
+      }
+    },
+    "rp_sparse/NaiveBayes": {
+      "n_dims": 30,
+      "accuracy": {
+        "mean": 0.778926,
+        "std": 0.035277
+      },
+      "fpr": {
+        "mean": 0.064512,
+        "std": 0.024085
+      },
+      "precision": {
+        "mean": 0.928711,
+        "std": 0.027469
+      },
+      "recall": {
+        "mean": 0.656396,
+        "std": 0.060265
+      },
+      "f1": {
+        "mean": 0.76783,
+        "std": 0.044191
+      },
+      "macro_f1": {
+        "mean": 0.778203,
+        "std": 0.035883
+      }
+    },
+    "rp_sparse/J48": {
+      "n_dims": 10,
+      "accuracy": {
+        "mean": 0.776188,
+        "std": 0.010839
+      },
+      "fpr": {
+        "mean": 0.030866,
+        "std": 0.003975
+      },
+      "precision": {
+        "mean": 0.962782,
+        "std": 0.004839
+      },
+      "recall": {
+        "mean": 0.625183,
+        "std": 0.018842
+      },
+      "f1": {
+        "mean": 0.75796,
+        "std": 0.014204
+      },
+      "macro_f1": {
+        "mean": 0.774893,
+        "std": 0.011199
+      }
+    },
+    "rp_sparse/RandomForest": {
+      "n_dims": 15,
+      "accuracy": {
+        "mean": 0.770101,
+        "std": 0.015032
+      },
+      "fpr": {
+        "mean": 0.026036,
+        "std": 0.001561
+      },
+      "precision": {
+        "mean": 0.967649,
+        "std": 0.002441
+      },
+      "recall": {
+        "mean": 0.610551,
+        "std": 0.026632
+      },
+      "f1": {
+        "mean": 0.748419,
+        "std": 0.020336
+      },
+      "macro_f1": {
+        "mean": 0.768343,
+        "std": 0.015689
+      }
+    }
+  },
+  "runs": [
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.026380750000043918,
+      "classifier_fit_seconds": 0.03515862499989453,
+      "accuracy": 0.7770109689213894,
+      "fpr": 0.034041224234853215,
+      "precision": 0.9593738352590384,
+      "recall": 0.6291347563956331,
+      "f1": 0.7599271761058899,
+      "macro_f1": 0.7758760341851291,
+      "confusion_matrix": [
+        [
+          9279,
+          327
+        ],
+        [
+          4552,
+          7722
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.032213541000146506,
+      "classifier_fit_seconds": 0.9445531249998567,
+      "accuracy": 0.783363802559415,
+      "fpr": 0.024567978346866543,
+      "precision": 0.970522108418686,
+      "recall": 0.6330454619520939,
+      "f1": 0.7662721893491125,
+      "macro_f1": 0.782199127042529,
+      "confusion_matrix": [
+        [
+          9370,
+          236
+        ],
+        [
+          4504,
+          7770
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.022784124999816413,
+      "classifier_fit_seconds": 3.2827632090002226,
+      "accuracy": 0.7825411334552103,
+      "fpr": 0.029877160108265667,
+      "precision": 0.9645241038318912,
+      "recall": 0.6357340720221607,
+      "f1": 0.7663523865645256,
+      "macro_f1": 0.7814921447269543,
+      "confusion_matrix": [
+        [
+          9319,
+          287
+        ],
+        [
+          4471,
+          7803
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.025049208999917028,
+      "classifier_fit_seconds": 0.04325245800009725,
+      "accuracy": 0.7324497257769652,
+      "fpr": 0.08161565688111597,
+      "precision": 0.9018527791687532,
+      "recall": 0.5869317255988268,
+      "f1": 0.7110847892606851,
+      "macro_f1": 0.7309786019671372,
+      "confusion_matrix": [
+        [
+          8822,
+          784
+        ],
+        [
+          5070,
+          7204
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.023161083000104554,
+      "classifier_fit_seconds": 0.8248600419997274,
+      "accuracy": 0.7595521023765996,
+      "fpr": 0.04299396210701645,
+      "precision": 0.9473147085087383,
+      "recall": 0.605018738797458,
+      "f1": 0.738427882464078,
+      "macro_f1": 0.7579736147635652,
+      "confusion_matrix": [
+        [
+          9193,
+          413
+        ],
+        [
+          4848,
+          7426
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.021005666999826644,
+      "classifier_fit_seconds": 3.250372625000182,
+      "accuracy": 0.7185557586837295,
+      "fpr": 0.06870705808869457,
+      "precision": 0.9112426035502958,
+      "recall": 0.5520612677203846,
+      "f1": 0.6875697615423643,
+      "macro_f1": 0.7157599327462341,
+      "confusion_matrix": [
+        [
+          8946,
+          660
+        ],
+        [
+          5498,
+          6776
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.0193224999998165,
+      "classifier_fit_seconds": 0.041142541999761306,
+      "accuracy": 0.7721206581352834,
+      "fpr": 0.06849885488236519,
+      "precision": 0.9235239423523942,
+      "recall": 0.6473847156591168,
+      "f1": 0.761184021457994,
+      "macro_f1": 0.7716417441439083,
+      "confusion_matrix": [
+        [
+          8948,
+          658
+        ],
+        [
+          4328,
+          7946
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.021437124999920343,
+      "classifier_fit_seconds": 0.9424536669998815,
+      "accuracy": 0.7753656307129799,
+      "fpr": 0.07276702061211743,
+      "precision": 0.9201781431997259,
+      "recall": 0.6565096952908587,
+      "f1": 0.7662973705482383,
+      "macro_f1": 0.7750269025296077,
+      "confusion_matrix": [
+        [
+          8907,
+          699
+        ],
+        [
+          4216,
+          8058
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.015454542000043148,
+      "classifier_fit_seconds": 3.6249168750000536,
+      "accuracy": 0.7686014625228519,
+      "fpr": 0.07651467832604622,
+      "precision": 0.9153323349844488,
+      "recall": 0.6473847156591168,
+      "f1": 0.7583870198043426,
+      "macro_f1": 0.7681871516474026,
+      "confusion_matrix": [
+        [
+          8871,
+          735
+        ],
+        [
+          4328,
+          7946
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.023806499999864172,
+      "classifier_fit_seconds": 0.03858308400003807,
+      "accuracy": 0.7460237659963437,
+      "fpr": 0.07349573183427024,
+      "precision": 0.9131504490097183,
+      "recall": 0.6047743197001793,
+      "f1": 0.7276380924373866,
+      "macro_f1": 0.7448611321030106,
+      "confusion_matrix": [
+        [
+          8900,
+          706
+        ],
+        [
+          4851,
+          7423
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.019726708000234794,
+      "classifier_fit_seconds": 0.9039547079996737,
+      "accuracy": 0.7470749542961609,
+      "fpr": 0.07651467832604622,
+      "precision": 0.9104750304506699,
+      "recall": 0.6090109173863452,
+      "f1": 0.7298379222808046,
+      "macro_f1": 0.7460411470830042,
+      "confusion_matrix": [
+        [
+          8871,
+          735
+        ],
+        [
+          4799,
+          7475
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.020545207999930426,
+      "classifier_fit_seconds": 3.211405250000098,
+      "accuracy": 0.7369287020109689,
+      "fpr": 0.08119925046845722,
+      "precision": 0.9034414459024511,
+      "recall": 0.5945901906468959,
+      "f1": 0.7171776729559748,
+      "macro_f1": 0.7356394174759369,
+      "confusion_matrix": [
+        [
+          8826,
+          780
+        ],
+        [
+          4976,
+          7298
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.020860582999830513,
+      "classifier_fit_seconds": 0.0326319170003444,
+      "accuracy": 0.7792047531992687,
+      "fpr": 0.06017072662919009,
+      "precision": 0.9327828817304338,
+      "recall": 0.6534951930910868,
+      "f1": 0.7685526757054568,
+      "macro_f1": 0.7787360748213132,
+      "confusion_matrix": [
+        [
+          9028,
+          578
+        ],
+        [
+          4253,
+          8021
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.022924500000044645,
+      "classifier_fit_seconds": 0.8362047910000001,
+      "accuracy": 0.7625685557586838,
+      "fpr": 0.06756194045388299,
+      "precision": 0.9225259639489077,
+      "recall": 0.6296235945901907,
+      "f1": 0.7484383322841509,
+      "macro_f1": 0.7618170717199888,
+      "confusion_matrix": [
+        [
+          8957,
+          649
+        ],
+        [
+          4546,
+          7728
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.022097083000062412,
+      "classifier_fit_seconds": 3.9186840420002227,
+      "accuracy": 0.7789762340036563,
+      "fpr": 0.04153653966271081,
+      "precision": 0.9515541525012142,
+      "recall": 0.6385041551246537,
+      "f1": 0.764212579229644,
+      "macro_f1": 0.7781062896148221,
+      "confusion_matrix": [
+        [
+          9207,
+          399
+        ],
+        [
+          4437,
+          7837
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.032205208000050334,
+      "classifier_fit_seconds": 0.029274624999743537,
+      "accuracy": 0.7798446069469835,
+      "fpr": 0.11419945867166355,
+      "precision": 0.8863330224847166,
+      "recall": 0.6969203193742871,
+      "f1": 0.780296465222349,
+      "macro_f1": 0.7798436757071214,
+      "confusion_matrix": [
+        [
+          8509,
+          1097
+        ],
+        [
+          3720,
+          8554
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.022675917000015033,
+      "classifier_fit_seconds": 0.9097209169999587,
+      "accuracy": 0.7409049360146253,
+      "fpr": 0.06860295648552987,
+      "precision": 0.9168244351886912,
+      "recall": 0.5918201075444028,
+      "f1": 0.7193147497153043,
+      "macro_f1": 0.7393628452985976,
+      "confusion_matrix": [
+        [
+          8947,
+          659
+        ],
+        [
+          5010,
+          7264
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.016777959000137344,
+      "classifier_fit_seconds": 3.7664413749998857,
+      "accuracy": 0.740219378427788,
+      "fpr": 0.08276077451592755,
+      "precision": 0.9028117359413202,
+      "recall": 0.6016783444679811,
+      "f1": 0.7221081451060917,
+      "macro_f1": 0.7391112252175958,
+      "confusion_matrix": [
+        [
+          8811,
+          795
+        ],
+        [
+          4889,
+          7385
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.024839624999913212,
+      "classifier_fit_seconds": 0.030689124999753403,
+      "accuracy": 0.7189213893967094,
+      "fpr": 0.12148657089319176,
+      "precision": 0.8620241191771104,
+      "recall": 0.594019879419912,
+      "f1": 0.7033571290758248,
+      "macro_f1": 0.7181454743867921,
+      "confusion_matrix": [
+        [
+          8439,
+          1167
+        ],
+        [
+          4983,
+          7291
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.02522120800040284,
+      "classifier_fit_seconds": 0.9048637920000147,
+      "accuracy": 0.7313071297989031,
+      "fpr": 0.07797210077035187,
+      "precision": 0.9051057899404535,
+      "recall": 0.5820433436532507,
+      "f1": 0.7084841572866564,
+      "macro_f1": 0.7296500386314603,
+      "confusion_matrix": [
+        [
+          8857,
+          749
+        ],
+        [
+          5130,
+          7144
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.02314262499976394,
+      "classifier_fit_seconds": 3.6017306670000835,
+      "accuracy": 0.6750457038391224,
+      "fpr": 0.1126379346241932,
+      "precision": 0.8523471615720524,
+      "recall": 0.5088805605344631,
+      "f1": 0.6372819100091828,
+      "macro_f1": 0.671484733463073,
+      "confusion_matrix": [
+        [
+          8524,
+          1082
+        ],
+        [
+          6028,
+          6246
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.02475399999957517,
+      "classifier_fit_seconds": 0.029752417000054265,
+      "accuracy": 0.7343692870201097,
+      "fpr": 0.08067874245263378,
+      "precision": 0.9032700948577135,
+      "recall": 0.5896203356688936,
+      "f1": 0.7134969930000986,
+      "macro_f1": 0.7329519556463389,
+      "confusion_matrix": [
+        [
+          8831,
+          775
+        ],
+        [
+          5037,
+          7237
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.01897362499994415,
+      "classifier_fit_seconds": 0.8383838330000799,
+      "accuracy": 0.7784277879341864,
+      "fpr": 0.021757235061419945,
+      "precision": 0.9733554309026007,
+      "recall": 0.6220466025745478,
+      "f1": 0.7590217715478675,
+      "macro_f1": 0.7769814889377946,
+      "confusion_matrix": [
+        [
+          9397,
+          209
+        ],
+        [
+          4639,
+          7635
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.016443417000118643,
+      "classifier_fit_seconds": 3.7425120829998377,
+      "accuracy": 0.7164076782449725,
+      "fpr": 0.07568186550072871,
+      "precision": 0.9033630200717798,
+      "recall": 0.5536907283689099,
+      "f1": 0.6865686720210132,
+      "macro_f1": 0.7138139024253962,
+      "confusion_matrix": [
+        [
+          8879,
+          727
+        ],
+        [
+          5478,
+          6796
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.025976916999752575,
+      "classifier_fit_seconds": 0.02644712499977686,
+      "accuracy": 0.7398080438756856,
+      "fpr": 0.014782427649385801,
+      "precision": 0.9793153678077203,
+      "recall": 0.5477431970017924,
+      "f1": 0.7025445425570824,
+      "macro_f1": 0.7356595829230723,
+      "confusion_matrix": [
+        [
+          9464,
+          142
+        ],
+        [
+          5551,
+          6723
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.02266020800016122,
+      "classifier_fit_seconds": 0.9580248750003193,
+      "accuracy": 0.7480804387568556,
+      "fpr": 0.06391838434311889,
+      "precision": 0.9231539424280351,
+      "recall": 0.6009450871761447,
+      "f1": 0.727990525069088,
+      "macro_f1": 0.7466987014177582,
+      "confusion_matrix": [
+        [
+          8992,
+          614
+        ],
+        [
+          4898,
+          7376
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.026107916999990266,
+      "classifier_fit_seconds": 3.7179294999996273,
+      "accuracy": 0.7420475319926874,
+      "fpr": 0.11940453882989797,
+      "precision": 0.8714701927386822,
+      "recall": 0.6336157731790777,
+      "f1": 0.733748466836494,
+      "macro_f1": 0.7417966693725064,
+      "confusion_matrix": [
+        [
+          8459,
+          1147
+        ],
+        [
+          4497,
+          7777
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_gaussian",
+      "n_dims": 20,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.024628708000363986,
+      "classifier_fit_seconds": 0.02613441600033184,
+      "accuracy": 0.7744972577696526,
+      "fpr": 0.0388298979804289,
+      "precision": 0.9538708879544893,
+      "recall": 0.6284014991037966,
+      "f1": 0.7576620825147348,
+      "macro_f1": 0.773403690830017,
+      "confusion_matrix": [
+        [
+          9233,
+          373
+        ],
+        [
+          4561,
+          7713
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_gaussian",
+      "n_dims": 5,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.04420004199982941,
+      "classifier_fit_seconds": 0.7289029999997183,
+      "accuracy": 0.7660877513711152,
+      "fpr": 0.025921299188007497,
+      "precision": 0.9674679905931539,
+      "recall": 0.6033078051165064,
+      "f1": 0.7431754315535929,
+      "macro_f1": 0.7642110793216101,
+      "confusion_matrix": [
+        [
+          9357,
+          249
+        ],
+        [
+          4869,
+          7405
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_gaussian",
+      "n_dims": 2,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.016532833000383107,
+      "classifier_fit_seconds": 3.5212762080000175,
+      "accuracy": 0.7558043875685557,
+      "fpr": 0.03716427232979388,
+      "precision": 0.9533028122956181,
+      "recall": 0.5937754603226332,
+      "f1": 0.7317636427531503,
+      "macro_f1": 0.7538269579060832,
+      "confusion_matrix": [
+        [
+          9249,
+          357
+        ],
+        [
+          4986,
+          7288
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.10143737499993222,
+      "classifier_fit_seconds": 0.04501879200006442,
+      "accuracy": 0.7851919561243145,
+      "fpr": 0.03914220278992297,
+      "precision": 0.9548402594282969,
+      "recall": 0.647710607788822,
+      "f1": 0.7718446601941747,
+      "macro_f1": 0.7844542817378473,
+      "confusion_matrix": [
+        [
+          9230,
+          376
+        ],
+        [
+          4324,
+          7950
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.07230974999993123,
+      "classifier_fit_seconds": 0.23586424999984956,
+      "accuracy": 0.7788391224862888,
+      "fpr": 0.029044347282948156,
+      "precision": 0.9650944576504441,
+      "recall": 0.628482972136223,
+      "f1": 0.7612374796467163,
+      "macro_f1": 0.7776306157012792,
+      "confusion_matrix": [
+        [
+          9327,
+          279
+        ],
+        [
+          4560,
+          7714
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 42,
+      "projection_fit_transform_seconds": 0.07005945800028712,
+      "classifier_fit_seconds": 1.4223584589999518,
+      "accuracy": 0.7686471663619744,
+      "fpr": 0.024047470331043097,
+      "precision": 0.9698983580922595,
+      "recall": 0.6064037803487046,
+      "f1": 0.7462402245839181,
+      "macro_f1": 0.7668291665503162,
+      "confusion_matrix": [
+        [
+          9375,
+          231
+        ],
+        [
+          4831,
+          7443
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.08013108399973135,
+      "classifier_fit_seconds": 0.027625457999874925,
+      "accuracy": 0.7708409506398537,
+      "fpr": 0.034041224234853215,
+      "precision": 0.9586808188021229,
+      "recall": 0.618135897018087,
+      "f1": 0.7516346344362987,
+      "macro_f1": 0.7694623197635422,
+      "confusion_matrix": [
+        [
+          9279,
+          327
+        ],
+        [
+          4687,
+          7587
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.07167516700019405,
+      "classifier_fit_seconds": 0.20946895799988852,
+      "accuracy": 0.7971663619744058,
+      "fpr": 0.033416614615865085,
+      "precision": 0.962137296532201,
+      "recall": 0.6645755255010591,
+      "f1": 0.7861410948342329,
+      "macro_f1": 0.7966258325353361,
+      "confusion_matrix": [
+        [
+          9285,
+          321
+        ],
+        [
+          4117,
+          8157
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 43,
+      "projection_fit_transform_seconds": 0.06946150000021589,
+      "classifier_fit_seconds": 1.342884665999918,
+      "accuracy": 0.801873857404022,
+      "fpr": 0.02571309598167812,
+      "precision": 0.9707103047551287,
+      "recall": 0.6669382434414209,
+      "f1": 0.7906505046602598,
+      "macro_f1": 0.8013027823696042,
+      "confusion_matrix": [
+        [
+          9359,
+          247
+        ],
+        [
+          4088,
+          8186
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.08597691700015275,
+      "classifier_fit_seconds": 0.027799249999588937,
+      "accuracy": 0.8101919561243145,
+      "fpr": 0.07568186550072871,
+      "precision": 0.9240731070496083,
+      "recall": 0.7208733909076096,
+      "f1": 0.809922650922239,
+      "macro_f1": 0.8101915751074159,
+      "confusion_matrix": [
+        [
+          8879,
+          727
+        ],
+        [
+          3426,
+          8848
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.07213312499970925,
+      "classifier_fit_seconds": 0.2718395420001798,
+      "accuracy": 0.7744515539305301,
+      "fpr": 0.02727462002914845,
+      "precision": 0.9666793844588579,
+      "recall": 0.6192765194720548,
+      "f1": 0.7549287381437155,
+      "macro_f1": 0.7730110820211021,
+      "confusion_matrix": [
+        [
+          9344,
+          262
+        ],
+        [
+          4673,
+          7601
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 44,
+      "projection_fit_transform_seconds": 0.07227916600004392,
+      "classifier_fit_seconds": 1.4038722499999494,
+      "accuracy": 0.7510054844606947,
+      "fpr": 0.02550489277534874,
+      "precision": 0.9665117550574084,
+      "recall": 0.5760958122861333,
+      "f1": 0.7218989280245023,
+      "macro_f1": 0.7482477676945019,
+      "confusion_matrix": [
+        [
+          9361,
+          245
+        ],
+        [
+          5203,
+          7071
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.07789995900020585,
+      "classifier_fit_seconds": 0.027003124999737338,
+      "accuracy": 0.7847349177330896,
+      "fpr": 0.04590880699562773,
+      "precision": 0.9477859341700213,
+      "recall": 0.6521916245722665,
+      "f1": 0.7726833976833977,
+      "macro_f1": 0.7841281571750321,
+      "confusion_matrix": [
+        [
+          9165,
+          441
+        ],
+        [
+          4269,
+          8005
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.07078720800018345,
+      "classifier_fit_seconds": 0.335045750000063,
+      "accuracy": 0.7753656307129799,
+      "fpr": 0.030814074536747865,
+      "precision": 0.962771978367501,
+      "recall": 0.6236760632230731,
+      "f1": 0.7569839307787392,
+      "macro_f1": 0.7740730148901132,
+      "confusion_matrix": [
+        [
+          9310,
+          296
+        ],
+        [
+          4619,
+          7655
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 45,
+      "projection_fit_transform_seconds": 0.0694442919998437,
+      "classifier_fit_seconds": 1.5873119580001003,
+      "accuracy": 0.778199268738574,
+      "fpr": 0.024880283156360608,
+      "precision": 0.969743005443727,
+      "recall": 0.6240834283852045,
+      "f1": 0.7594309225202003,
+      "macro_f1": 0.7768409965125698,
+      "confusion_matrix": [
+        [
+          9367,
+          239
+        ],
+        [
+          4614,
+          7660
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.08690170799991392,
+      "classifier_fit_seconds": 0.029107792000104382,
+      "accuracy": 0.8155393053016453,
+      "fpr": 0.07870081199250469,
+      "precision": 0.9224615384615384,
+      "recall": 0.7327684536418445,
+      "f1": 0.8167453686887033,
+      "macro_f1": 0.815531315187193,
+      "confusion_matrix": [
+        [
+          8850,
+          756
+        ],
+        [
+          3280,
+          8994
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.07099437499982741,
+      "classifier_fit_seconds": 0.28924333400027535,
+      "accuracy": 0.7759140767824497,
+      "fpr": 0.033208411409535704,
+      "precision": 0.9601698089649144,
+      "recall": 0.6265276193579925,
+      "f1": 0.7582704728097421,
+      "macro_f1": 0.7747138878509672,
+      "confusion_matrix": [
+        [
+          9287,
+          319
+        ],
+        [
+          4584,
+          7690
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 46,
+      "projection_fit_transform_seconds": 0.07343987500007643,
+      "classifier_fit_seconds": 1.4693262920000052,
+      "accuracy": 0.7723491773308958,
+      "fpr": 0.027378721632313138,
+      "precision": 0.9663639851643433,
+      "recall": 0.6156102330128728,
+      "f1": 0.7521027223411139,
+      "macro_f1": 0.7708204489298842,
+      "confusion_matrix": [
+        [
+          9343,
+          263
+        ],
+        [
+          4718,
+          7556
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.09480979199997819,
+      "classifier_fit_seconds": 0.026978374999998778,
+      "accuracy": 0.7558043875685557,
+      "fpr": 0.04445138455132209,
+      "precision": 0.9451509312780989,
+      "recall": 0.5994785725924718,
+      "f1": 0.7336357744653272,
+      "macro_f1": 0.7541011242268832,
+      "confusion_matrix": [
+        [
+          9179,
+          427
+        ],
+        [
+          4916,
+          7358
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.06781000000000859,
+      "classifier_fit_seconds": 0.29671429099971647,
+      "accuracy": 0.7637111517367459,
+      "fpr": 0.0397668124089111,
+      "precision": 0.9514489069649212,
+      "recall": 0.6099071207430341,
+      "f1": 0.7433224108827327,
+      "macro_f1": 0.7622107862695482,
+      "confusion_matrix": [
+        [
+          9224,
+          382
+        ],
+        [
+          4788,
+          7486
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 47,
+      "projection_fit_transform_seconds": 0.07019229100023949,
+      "classifier_fit_seconds": 1.9596481249996032,
+      "accuracy": 0.7663162705667276,
+      "fpr": 0.02467207995003123,
+      "precision": 0.968958742632613,
+      "recall": 0.6027374938895226,
+      "f1": 0.743181475714501,
+      "macro_f1": 0.7644044563596193,
+      "confusion_matrix": [
+        [
+          9369,
+          237
+        ],
+        [
+          4876,
+          7398
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.09527524999975867,
+      "classifier_fit_seconds": 0.02876545899971461,
+      "accuracy": 0.7021937842778794,
+      "fpr": 0.11388715386216948,
+      "precision": 0.8623206644852756,
+      "recall": 0.5582532181847808,
+      "f1": 0.6777448071216617,
+      "macro_f1": 0.7004696847842804,
+      "confusion_matrix": [
+        [
+          8512,
+          1094
+        ],
+        [
+          5422,
+          6852
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.06951895800011698,
+      "classifier_fit_seconds": 0.25156129199967836,
+      "accuracy": 0.7679159049360146,
+      "fpr": 0.03185509056839475,
+      "precision": 0.9608094262295082,
+      "recall": 0.6112106892618543,
+      "f1": 0.7471367393685888,
+      "macro_f1": 0.7663380292839228,
+      "confusion_matrix": [
+        [
+          9300,
+          306
+        ],
+        [
+          4772,
+          7502
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 48,
+      "projection_fit_transform_seconds": 0.07008037500008868,
+      "classifier_fit_seconds": 1.4452035839999553,
+      "accuracy": 0.7493601462522852,
+      "fpr": 0.028107432854465958,
+      "precision": 0.9631650750341064,
+      "recall": 0.5751996089294443,
+      "f1": 0.7202611711895531,
+      "macro_f1": 0.7466184147055566,
+      "confusion_matrix": [
+        [
+          9336,
+          270
+        ],
+        [
+          5214,
+          7060
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.1179229999997915,
+      "classifier_fit_seconds": 0.02997525000000678,
+      "accuracy": 0.7570383912248629,
+      "fpr": 0.06912346450135332,
+      "precision": 0.9198648322471639,
+      "recall": 0.6209874531530064,
+      "f1": 0.7414396887159533,
+      "macro_f1": 0.7561508788407353,
+      "confusion_matrix": [
+        [
+          8942,
+          664
+        ],
+        [
+          4652,
+          7622
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.07943241600014517,
+      "classifier_fit_seconds": 0.25290229099982753,
+      "accuracy": 0.7667733089579525,
+      "fpr": 0.029564855298771602,
+      "precision": 0.963302752293578,
+      "recall": 0.6073814567378197,
+      "f1": 0.74501573976915,
+      "macro_f1": 0.7650627189181372,
+      "confusion_matrix": [
+        [
+          9322,
+          284
+        ],
+        [
+          4819,
+          7455
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 49,
+      "projection_fit_transform_seconds": 0.06783445800010668,
+      "classifier_fit_seconds": 1.1553436249996594,
+      "accuracy": 0.7740859232175503,
+      "fpr": 0.02883614407661878,
+      "precision": 0.964870006341154,
+      "recall": 0.6198468306990386,
+      "f1": 0.7547993452056153,
+      "macro_f1": 0.7726795336256457,
+      "confusion_matrix": [
+        [
+          9329,
+          277
+        ],
+        [
+          4666,
+          7608
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.07794133299967143,
+      "classifier_fit_seconds": 0.027190417000383604,
+      "accuracy": 0.7865630712979891,
+      "fpr": 0.07172600458047054,
+      "precision": 0.9232910264974393,
+      "recall": 0.6756558579110314,
+      "f1": 0.7802973278133233,
+      "macro_f1": 0.7863893322322926,
+      "confusion_matrix": [
+        [
+          8917,
+          689
+        ],
+        [
+          3981,
+          8293
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.07059120800022356,
+      "classifier_fit_seconds": 0.2895886659998723,
+      "accuracy": 0.7920475319926874,
+      "fpr": 0.026858213616489695,
+      "precision": 0.9686893203883495,
+      "recall": 0.6503177448264624,
+      "f1": 0.7782002534854245,
+      "macro_f1": 0.7912338271642902,
+      "confusion_matrix": [
+        [
+          9348,
+          258
+        ],
+        [
+          4292,
+          7982
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 50,
+      "projection_fit_transform_seconds": 0.06987750000007509,
+      "classifier_fit_seconds": 1.4451928329999646,
+      "accuracy": 0.761654478976234,
+      "fpr": 0.025817197584842806,
+      "precision": 0.9671740569159497,
+      "recall": 0.5953234479387323,
+      "f1": 0.7370013616420394,
+      "macro_f1": 0.7595415901018688,
+      "confusion_matrix": [
+        [
+          9358,
+          248
+        ],
+        [
+          4967,
+          7307
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "NaiveBayes",
+      "setting": "rp_sparse",
+      "n_dims": 30,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.0965747499999452,
+      "classifier_fit_seconds": 0.026978417000009358,
+      "accuracy": 0.8211608775137111,
+      "fpr": 0.07245471580262336,
+      "precision": 0.9286373423561981,
+      "recall": 0.7379012546846994,
+      "f1": 0.822354383256912,
+      "macro_f1": 0.8211528047513567,
+      "confusion_matrix": [
+        [
+          8910,
+          696
+        ],
+        [
+          3217,
+          9057
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "J48",
+      "setting": "rp_sparse",
+      "n_dims": 10,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.06675012499999866,
+      "classifier_fit_seconds": 0.218224041999747,
+      "accuracy": 0.7696983546617916,
+      "fpr": 0.026858213616489695,
+      "precision": 0.9667139723906593,
+      "recall": 0.6104774319700179,
+      "f1": 0.7483645443196005,
+      "macro_f1": 0.7680310187365855,
+      "confusion_matrix": [
+        [
+          9348,
+          258
+        ],
+        [
+          4781,
+          7493
+        ]
+      ]
+    },
+    {
+      "experiment": "rp_seed_stability",
+      "model": "RandomForest",
+      "setting": "rp_sparse",
+      "n_dims": 15,
+      "seed": 51,
+      "projection_fit_transform_seconds": 0.06852174999994531,
+      "classifier_fit_seconds": 1.0795845829998143,
+      "accuracy": 0.7775137111517367,
+      "fpr": 0.02540079117218405,
+      "precision": 0.9690904484418545,
+      "recall": 0.6232686980609419,
+      "f1": 0.7586275287584292,
+      "macro_f1": 0.7761431980855558,
+      "confusion_matrix": [
+        [
+          9362,
+          244
+        ],
+        [
+          4624,
+          7650
+        ]
+      ]
+    }
+  ]
+}

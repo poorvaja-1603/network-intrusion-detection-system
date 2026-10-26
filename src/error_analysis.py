@@ -117,28 +117,32 @@ def run_error_analysis():
             break
     fn_examples = fn_df.loc[selected_indices]
 
-    def explain_fn(r):
-        reasons = []
+    def describe_fn(r):
+        """List observable features without claiming they caused the error."""
+        observations = []
         if r["is_novel"]:
-            reasons.append(f"Novel zero-day exploit (`{r['attack_type']}`) unseen in training.")
+            observations.append(f"test-only attack type `{r['attack_type']}`")
         if r["flag"] == "SF":
-            reasons.append("Clean TCP handshake & teardown (`flag='SF'`).")
+            observations.append("flag=SF")
         if r["serror_rate"] == 0.0 and r["rerror_rate"] == 0.0:
-            reasons.append("Zero SYN/REJ errors.")
+            observations.append("serror_rate=0 and rerror_rate=0")
         if r["logged_in"] == 1:
-            reasons.append("Successfully authenticated session (`logged_in=1`).")
+            observations.append("logged_in=1")
         if r["count"] <= 2:
-            reasons.append(f"Low connection frequency (`count={int(r['count'])}`), disguising as normal user traffic.")
-        if len(reasons) == 0:
-            reasons.append("Connection statistics fall within the normal operational distribution.")
-        return " ".join(reasons)
+            observations.append(f"count={int(r['count'])}")
+        if not observations:
+            observations.append("no listed indicator among the inspected fields")
+        return "; ".join(observations)
 
     # Write Markdown Report
     report_path = REPORTS_DIR / "error_analysis.md"
     with open(report_path, "w", encoding="utf-8") as f:
         f.write("# NSL-KDD Error and Vulnerability Analysis (Task 22)\n\n")
         f.write("## 1. Executive Summary\n")
-        f.write(f"- **Overall Test Accuracy:** {(raw_test['pred_bin'] == raw_test['true_bin']).mean() * 100:.2f}%\n")
+        f.write("- **Model:** 100-tree entropy Random Forest trained for the five attack categories (seed 42).\n")
+        f.write("- **Test split note:** This run uses official KDDTest+ for comparability. The overlap audit found 664 test rows with exact 41-feature matches in KDDTrain+; the separate overlap-clean file removes those rows.\n")
+        f.write(f"- **Five-category accuracy:** {(raw_test['pred_cat'] == raw_test['true_cat']).mean() * 100:.2f}%\n")
+        f.write(f"- **Binary attack/normal accuracy:** {(raw_test['pred_bin'] == raw_test['true_bin']).mean() * 100:.2f}%\n")
         f.write(f"- **Detection Rate on Known (Train-Seen) Attacks:** {seen_recall:.2f}%\n")
         f.write(f"- **Detection Rate on Novel (Test-Only Zero-Day) Attacks:** {novel_recall:.2f}%\n")
         f.write(f"- **The Generalization Drop:** Detection rate drops by **{seen_recall - novel_recall:.2f}%** on previously unseen attack vectors.\n\n")
@@ -150,11 +154,8 @@ def run_error_analysis():
             f.write(f"| **{row['Category']}** | {row['Total Samples']:,} | {row['Binary Detection Recall (%)']}% | {row['Exact Category Recall (%)']}% |\n")
         f.write("\n")
 
-        f.write("### Key Observations:\n")
-        f.write("1. **Normal & DoS traffic:** High recall (>80-97%). DoS patterns (high volume SYN packets, same host connection counts) remain distinct.\n")
-        f.write("2. **Probe traffic:** Fairly well-detected (~75-80%), though slow stealth scans mimic legitimate administrative requests.\n")
-        f.write("3. **R2L (Remote to Local):** Massive vulnerability (<25% detection rate). Attackers masquerade inside single valid TCP sessions (`ftp_write`, `guess_passwd`, `snmpguest`), lacking anomalous traffic bursts.\n")
-        f.write("4. **U2R (User to Root):** Catastrophic failure rate (<15-20% detection). Extremely few training samples (only 52 out of 125,973 in train) lead to extreme class imbalance.\n\n")
+        f.write("### Observations:\n")
+        f.write("The table reports measured recall for this run. Low recall in a category is a model limitation on this fixed benchmark split; the small U2R training count (52 rows) is one plausible contributing factor, not a demonstrated cause.\n\n")
 
         f.write("## 3. Attack-Level Granular Breakdown (All 39 Types)\n\n")
         f.write("| Attack Name | Category | Status | Count | Detection Rate (%) | Exact Category Rate (%) |\n")
@@ -165,19 +166,19 @@ def run_error_analysis():
         f.write("\n")
 
         f.write("## 4. Deep Dive: 10 Representative False Negatives\n\n")
-        f.write("The table below inspects 10 specific attacks that bypassed the model and were classified as `normal`:\n\n")
-        f.write("| # | Attack Type | Category | Novel? | Service | Count | Dst Host Srv Count | Why it slipped through |\n")
+        f.write("The table shows up to 10 false negatives from distinct attack types. The listed fields describe the examples and do not establish why the model made each prediction.\n\n")
+        f.write("| # | Attack Type | Category | Test-only type? | Service | Count | Dst Host Srv Count | Observed attributes |\n")
         f.write("|---|---|---|---|---|---|---|---|\n")
         
         for idx, (_, row) in enumerate(fn_examples.iterrows()):
             novel_str = "Yes" if row["is_novel"] else "No"
-            reason = explain_fn(row)
-            f.write(f"| {idx+1} | `{row['attack_type']}` | {row['true_cat']} | {novel_str} | {row['service']} | {int(row['count'])} | {int(row['dst_host_srv_count'])} | {reason} |\n")
+            observations = describe_fn(row)
+            f.write(f"| {idx+1} | `{row['attack_type']}` | {row['true_cat']} | {novel_str} | {row['service']} | {int(row['count'])} | {int(row['dst_host_srv_count'])} | {observations} |\n")
 
         f.write("\n## 5. Conclusions & Strategic Recommendations\n")
-        f.write("1. **Do not rely on accuracy alone:** Binary accuracy near 78-80% creates a false sense of security. An IDS that misses 80% of R2L and U2R compromises is insecure in production.\n")
-        f.write("2. **Need for Content-Aware Features:** Connection metadata alone (ports, counts) fails to detect payload-driven application layer intrusions.\n")
-        f.write("3. **Class Rebalancing:** Techniques like SMOTE or cost-sensitive loss are necessary to give minority attacks (U2R with 52 samples) sufficient decision boundary presence.\n")
+        f.write("1. **Report class-level metrics:** Overall accuracy can hide weak recall on minority attack families, so operational evaluation should include per-class recall and false-positive cost.\n")
+        f.write("2. **Treat this as benchmark evidence:** The inspected NSL-KDD connection fields do not include packet payloads, so these results do not establish performance on live traffic or payload-based attacks.\n")
+        f.write("3. **Evaluate mitigations separately:** Class weighting, resampling, and additional features are candidate follow-up experiments; this report does not claim they will improve performance.\n")
 
     print(f"Error analysis report generated at: {report_path}")
 

@@ -97,18 +97,14 @@ The paper solely examined binary detection. We extended classification to the 5 
 
 ### 3.1 Weak Spot 1: Binary Accuracy Hides Catastrophic Blindspots
 The paper highlights ~80-82% accuracy as a strong success. However, our granular attack analysis reveals:
-- **Known (train-seen) attack detection rate:** **82.4%**
-- **Novel (zero-day test-only) attack detection rate:** **51.8%** (a 30.6% drop!)
-- **R2L and U2R detection:** Less than **25%** of Remote-to-Local attacks and under **17%** of User-to-Root attacks are detected. In real security operations, missing an R2L credential theft or U2R privilege escalation leads to catastrophic network compromise.
+- For the current five-category Random Forest run, attack detection recall was **75.69%** on attack types also present in training and **17.41%** on test-only attack types.
+- The category table shows **1.77% R2L** and **5.97% U2R** binary detection recall on the official KDDTest+ split. These are benchmark results, not a forecast of production performance.
 
 ### 3.2 Weak Spot 2: Unmeasured Timing Claims
-The paper repeatedly states that Random Projection is "faster than PCA" without reporting a single millisecond of execution time. Our benchmarks measured:
-- **Gaussian RP projection transformation:** **0.08 seconds**
-- **PCA covariance decomposition & projection:** **1.45 seconds** (an 18x difference)
-- **Classifier fit time at 5 dims:** 0.03s - 2.15s (compared to full features requiring up to 55s for neural networks).
+The paper describes Random Projection as faster than PCA without reporting measured timings. Our five-repeat J48 benchmark at 20 dimensions recorded mean reducer fit times of **0.023 seconds for Gaussian RP** and **0.087 seconds for PCA**. In this run, RP's reducer fit was faster; total fit time (including shared preprocessing and classifier fit) was **2.88 seconds for RP** and **2.74 seconds for PCA**. These measurements depend on hardware and configuration and should not be generalized as universal speedups. K-best scoring took **37.15 seconds** in the same benchmark. See `results/timing.json`.
 
 ### 3.3 Weak Spot 3: The "92% Variance in PC1" Scaling Anomaly
-The paper claims that 92% of the entire dataset's variance was captured in the single first principal component ($D=1$). In our analysis, this only occurs if large-magnitude continuous features (such as `src_bytes` and `dst_bytes` with values in the millions) are left **unstandardized**, distorting the covariance matrix. When proper z-score scaling is applied, variance is distributed more evenly across the components.
+The paper reports that 92% of variance is captured by PC1. Our controlled comparison measured **19.24% with standardized numeric features** and **68.06% with numeric features left in original units**. This confirms that scaling changes the variance distribution, but it does not reproduce the paper's 92% result and does not prove why the paper obtained it. Differences in exact preprocessing may explain part of the gap.
 
 ### 3.4 Weak Spot 4: Table 4 Confusion Matrix Typo
 In paper Table 4 (J48 Confusion Matrix), cell $(2, 1)$ is printed as `34,231`. Because the total anomaly rows in `KDDTest+` equals exactly `12,833`, this figure is mathematically impossible. The correct value is `4,231`, as $4,231 + 8,602 = 12,833$.
@@ -116,9 +112,36 @@ In paper Table 4 (J48 Confusion Matrix), cell $(2, 1)$ is printed as `34,231`. B
 ---
 
 ## 4. Production Pipeline Contract (Task 20)
-The final production model is compiled into `models/final.joblib`:
-- Accepts raw, un-preprocessed 41-column Pandas DataFrames.
-- Contains the integrated `OneHotEncoder`, `StandardScaler`, and `RandomForestClassifier`.
-- Implements `predict(X)` returning categorical labels (`['normal', 'dos', 'probe', 'r2l', 'u2r']`) and `predict_proba(X)` for calibrated security alert confidence scoring.
-- Benchmark inference latency: **0.011 ms per network flow**, fully exceeding real-time intrusion monitoring constraints.
+The project includes `models/final.joblib`, which accepts raw 41-column DataFrames and returns five-category predictions and class probabilities. The checkpoint was rebuilt with scikit-learn 1.6.1 and the API contract passed Member B's integration checks in that pinned environment. The base environment still has scikit-learn 1.7.2, so use the pinned project dependencies to load the checkpoint. Random Forest probabilities have not been calibrated and should not be described as calibrated confidence.
+
+---
+
+## 5. PCA Scaling Check (Task 10)
+
+We compared PCA after standardizing the numeric features with PCA that leaves the numeric features in their original units. Both branches one-hot encode the three categorical fields, fit preprocessing and PCA on KDDTrain+ only, and evaluate the fixed KDDTest+ split. This keeps test data out of fitting, although KDDTest+ itself has known feature overlap with KDDTrain+; see the separate split audit and report limitation.
+
+| Numeric preprocessing | Variance explained by PC1 | Best Naive Bayes accuracy | Best J48 accuracy | Best Random Forest accuracy |
+|---|---:|---:|---:|---:|
+| Standardized | 19.24% | 82.03% (10 PCs) | 76.81% (4 PCs) | 76.18% (4 PCs) |
+| Original units | 68.06% | 45.04% (5 PCs) | 81.66% (15 PCs) | 78.93% (10 PCs) |
+
+The standardized branch spreads variance more evenly across components. Leaving numeric features in their original units raises PC1's share, but this experiment did **not** reproduce the paper's reported 92%: it measured 68.06%. The exact preprocessing used in the paper may differ, so the comparison is evidence of scaling sensitivity rather than proof of the paper's cause. Unscaled Naive Bayes performs poorly in this sweep, which also shows that variance concentration alone is not a measure of useful classification information.
+
+The best dimensions above were selected by comparing results on KDDTest+, so they are descriptive results and must not be presented as an unbiased model-selection estimate. The figures are in `reports/figures/pca_explained_variance.png` and `reports/figures/pca_accuracy.png`; the raw measurements are in `results/exp2_pca.json`.
+
+## 6. Random Projection Seed Stability (Task 14)
+
+To show how much a random projection seed can change the result, we ran each RP type with 10 seeds (42–51), using the best dimension for each model from the corresponding single-seed sweep. We used the overlap-clean test file (21,880 rows, with no exact feature rows shared with KDDTrain+). Values below are mean accuracy ± standard deviation across the 10 seeds.
+
+| Model | Gaussian RP | Sparse RP |
+|---|---:|---:|
+| Naive Bayes | 75.54% ± 2.33% (20 dims) | 77.89% ± 3.53% (30 dims) |
+| J48 | 75.93% ± 1.72% (5 dims) | 77.62% ± 1.08% (10 dims) |
+| Random Forest | 74.15% ± 3.27% (2 dims) | 77.01% ± 1.50% (15 dims) |
+
+Seed variability differs by model and projection type. The sweep selected dimensions using accuracy on official KDDTest+, and the overlap-clean test file is a subset of that same population. Removing exact train/test duplicates does not remove this dimension-selection bias, so treat the means as descriptive, not independent test estimates. Raw per-seed metrics and selected dimensions are in `results/exp3_rp_seeds.json`; the plot is `reports/figures/rp_seed_variance.png`.
+
+## 7. Final-Model Feature Importance (Task 21)
+
+The compatible `models/final.joblib` checkpoint was loaded under scikit-learn 1.6.1. The chart ranks global mean decrease in impurity for the five-category Random Forest. The largest entries were `src_bytes` (0.1138), `dst_bytes` (0.0641), `flag=SF` (0.0565), `dst_host_serror_rate` (0.0536), and `dst_host_srv_serror_rate` (0.0501). This is a global, model-specific ranking; it does not identify causes and does not show importance separately for each attack class. Full values are in `results/feature_importance.json`; the figure is `reports/figures/importance.png`.
 

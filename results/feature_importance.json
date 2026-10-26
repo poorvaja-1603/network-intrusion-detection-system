@@ -1,6 +1,6 @@
 {
   "model_path": "models/final.joblib",
-  "importance_model_source": "retrained in memory from src/build_final_model.py configuration",
+  "importance_model_source": "models/final.joblib",
   "method": "Random Forest mean decrease in impurity (global, not class-specific)",
   "classes": [
     "dos",
@@ -12,83 +12,83 @@
   "features_ranked": [
     {
       "feature": "num__src_bytes",
-      "importance": 0.11520198
+      "importance": 0.11379859
     },
     {
       "feature": "num__dst_bytes",
-      "importance": 0.06616927
+      "importance": 0.06406752
     },
     {
       "feature": "cat__flag_SF",
-      "importance": 0.05663721
+      "importance": 0.05647939
     },
     {
       "feature": "num__dst_host_serror_rate",
-      "importance": 0.05428224
+      "importance": 0.05355408
     },
     {
       "feature": "num__dst_host_srv_serror_rate",
-      "importance": 0.05119819
-    },
-    {
-      "feature": "num__dst_host_same_srv_rate",
-      "importance": 0.04292956
+      "importance": 0.05010602
     },
     {
       "feature": "num__count",
-      "importance": 0.04287057
+      "importance": 0.04402995
+    },
+    {
+      "feature": "num__dst_host_same_srv_rate",
+      "importance": 0.04242816
     },
     {
       "feature": "num__dst_host_srv_count",
-      "importance": 0.04244974
-    },
-    {
-      "feature": "num__diff_srv_rate",
-      "importance": 0.03962682
+      "importance": 0.04229021
     },
     {
       "feature": "num__same_srv_rate",
-      "importance": 0.03927261
+      "importance": 0.03940967
+    },
+    {
+      "feature": "num__diff_srv_rate",
+      "importance": 0.03938655
     },
     {
       "feature": "num__dst_host_same_src_port_rate",
-      "importance": 0.03864882
+      "importance": 0.03912092
     },
     {
       "feature": "num__logged_in",
-      "importance": 0.0370168
+      "importance": 0.03798166
     },
     {
       "feature": "cat__flag_S0",
-      "importance": 0.03618518
+      "importance": 0.03603403
     },
     {
       "feature": "num__dst_host_diff_srv_rate",
-      "importance": 0.03422152
+      "importance": 0.03377202
     },
     {
       "feature": "num__dst_host_srv_diff_host_rate",
-      "importance": 0.02578222
+      "importance": 0.02475792
     },
     {
       "feature": "num__srv_count",
-      "importance": 0.02278285
+      "importance": 0.02323343
     },
     {
       "feature": "num__dst_host_rerror_rate",
-      "importance": 0.02128266
-    },
-    {
-      "feature": "cat__protocol_type_icmp",
-      "importance": 0.01823398
-    },
-    {
-      "feature": "num__serror_rate",
-      "importance": 0.01767876
+      "importance": 0.02158381
     },
     {
       "feature": "num__dst_host_count",
-      "importance": 0.01732234
+      "importance": 0.02000721
+    },
+    {
+      "feature": "cat__protocol_type_icmp",
+      "importance": 0.01799586
+    },
+    {
+      "feature": "num__serror_rate",
+      "importance": 0.01796233
     }
   ],
   "caveat": "Impurity importance is a model-specific ranking, not evidence of causation. One-hot encoded categories appear as separate inputs."

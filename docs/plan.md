@@ -170,16 +170,17 @@ Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for task
 
 | Task | Owner | Status / handoff |
 |---|---|---|
-| 10 — PCA experiment | B | Pending; use C's shared preprocessing and save the variance curve and scores. |
+| 10 — PCA experiment | B | Completed; scaled and unscaled PCA sweeps, variance curves, and scores are saved. The paper's 92% PC1 claim was not reproduced (19.24% scaled, 68.06% unscaled in this setup). |
 | 13 — Sparse RP sweep | C | Completed; 27 model/dimension results saved to `results/exp3_rp_sparse_sweep.json` using seed 42. |
-| 14 — Multi-seed RP | B | Pending; depends on the RP sweep results from tasks 12 and 13; report mean and standard deviation. |
+| 14 — Multi-seed RP | B | Completed for Gaussian and sparse RP across 10 seeds at each model's sweep-selected dimension. Results include a caveat that sweep selection used official KDDTest+ and the overlap-clean file is a subset of that test population. |
 | 17 — Modern models | C | Completed; XGBoost 3.4.1 and MLP run on full and 5-D Gaussian RP; results saved to `results/exp6_modern.json`. |
 | 19 — Generalisation gap | B | Completed; rerun only if the shared pipeline or data contract changes. |
 | 20 — Final model | C | Completed; regenerated under scikit-learn 1.6.1, saved `models/final.joblib`, and verified API `v1` predictions on five raw rows. |
-| 21 — Feature importance | B | Initial figure/results are complete; regenerate from C's rebuilt compatible checkpoint. |
+| 21 — Feature importance | B | Completed; regenerated from C's rebuilt `models/final.joblib` under scikit-learn 1.6.1. |
+| 22 — Error analysis | B | Completed; report regenerated with observed false-negative fields labeled as descriptions, not causal explanations. |
 | 27 — Streamlit dashboard | C | Completed; live stats, alert feed, rolling minute timeline, and experiment metrics are integrated with the API. |
 | 28 — Fresh-clone launcher check | C | Completed; clean clone installed `requirements-demo.txt`, `run.bat` started API/dashboard, `/health` reported `v1`, five replayed rows updated `/stats`, and the dashboard returned HTTP 200. |
-| 29 — Integration tests | B | Data/overlap checks pass. C's API/model smoke check passes with the rebuilt checkpoint; B's suite should rerun after handoff. |
+| 29 — Integration tests | B | Completed; `tests/test_member_b.py` passes all 4 checks under the pinned scikit-learn 1.6.1 environment. |
 | 35 — Backup demo recording | C | Pending; the three-minute walkthrough is documented, but the requested two-minute screen recording is not yet in the repository. |
 | 34 — Slide deck | Deferred | Prepare later when the team is ready to make slides. |
 
