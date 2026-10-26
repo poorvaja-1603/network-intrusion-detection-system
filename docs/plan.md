@@ -154,22 +154,37 @@ Slots: **Sat**, **Sun**, **Mon**. "Needs" means what must exist before you can s
 
 ---
 
-## 6. Who does which numbers (each number appears exactly once)
+## 6. Who does which numbers (updated after D became unavailable)
 
-| Person | Task numbers | Count |
+Member D is unavailable, so D's tasks are reassigned among A, B, and C. Existing assignments remain in place. The counts below include reassigned work and are therefore higher than the original split.
+
+| Person | Original tasks | Reassigned from D | Total |
+|---|---|---|---|
+| **A** | **3, 6, 7, 8, 9, 12, 16, 20, 22, 31** | **10, 13, 14** | 13 |
+| **B** | **2, 4, 5, 11, 15, 18, 29, 30, 32** | **19, 21, 34** | 12 |
+| **C** | **1, 23, 24, 25, 26, 28, 33, 35, 36** | **17, 27** | 11 |
+| **D (unavailable)** | — | Reassigned | 0 |
+
+All tasks 1–36 remain assigned exactly once. D's work is divided by dependency: A handles the related PCA/sparse-RP/multi-seed experiments; B handles generalisation/error-supporting analysis, feature importance, and slides; C handles modern models and the dashboard that C already owns for integration.
+
+### Reassigned task handoffs
+
+| Task | New owner | Handoff / dependency |
 |---|---|---|
-| **A** | **3, 6, 7, 8, 9, 12, 16, 20, 22, 31** | 10 |
-| **B** | **2, 4, 5, 11, 15, 18, 29, 30, 32** | 9 |
-| **C** | **1, 23, 24, 25, 26, 28, 33, 35, 36** | 9 |
-| **D** | **10, 13, 14, 17, 19, 21, 27, 34** | 8 |
-
-Check: 1 to 36 all assigned, no duplicates.
+| 10 — PCA experiment | A | Use the shared train-fitted preprocessing from tasks 6–8; save PCA results and variance plot. |
+| 13 — Sparse RP sweep | A | Follow the Gaussian RP sweep format from task 12; use fixed seeds and the shared results schema. |
+| 14 — Multi-seed RP | A | Run after tasks 12 and 13; report mean and standard deviation across seeds. |
+| 17 — Modern models | C | Coordinate with A on preprocessing/results format; run only models supported by the available environment and record any omitted model. |
+| 19 — Generalisation gap | B | Use the shared evaluation functions and training-only cross-validation; compare with the fixed KDDTest+ results. Depends on tasks 6–8 and available model outputs. |
+| 21 — Feature importance | B | Depends on A completing task 20 and saving `models/final.joblib`; state the method used and save the figure under `reports/figures/`. |
+| 27 — Streamlit dashboard | C | Continue C's existing dashboard ownership; read available `results/*.json` and connect to the API/replay outputs. |
+| 34 — Slide deck | B | Build from completed results, figures, report sections, and system demo details from A/C; label incomplete experiments honestly. |
 
 Notes on the split:
-- A owns the shared core (`data.py`, `preprocess.py`, `models.py`, `evaluate.py`, final model). Everyone else's ML work imports from those, so A should push them to `main` as early as possible on Saturday, even if rough.
-- B's tasks are small and well bounded, with clear outputs. A reviews B's code on Saturday evening and Sunday noon.
-- C and D agree the API contract and the results JSON format first, then work independently with stand ins (task 24 dummy model, example results JSONs).
-- If someone finishes early, they help on report (31) or testing (29), not new experiments.
+- A owns the shared core (`data.py`, `preprocess.py`, `models.py`, `evaluate.py`, final model). Everyone else's ML work imports from those; A should publish stable interfaces early.
+- B's reassigned feature-importance task must wait for the saved final model. B can draft the slide structure while A/C finish results, then replace placeholders with verified numbers.
+- C owns the API/dashboard integration. The modern-model task should not alter the shared data contract; record its outputs using the established JSON format.
+- Keep changes scoped to each owner's files and coordinate shared-file edits before making them.
 
 ---
 
