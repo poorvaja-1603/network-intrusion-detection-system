@@ -140,6 +140,7 @@ Slots: **Sat**, **Sun**, **Mon**. "Needs" means what must exist before you can s
 | 27 | Streamlit dashboard: live alert feed, counts per class, timeline, confidence, and a "Model metrics" page that reads `results/*.json` | `app/dashboard.py` | Sun to Mon | 24, results contract |
 | 28 | One command run script (`run.sh` or Makefile) and a fresh clone test on a clean environment | `run.sh`, tested | Mon | 20, 25, 27 |
 | 29 | Tests: data shapes, no train/test overlap, API schema, model loads and predicts on 5 sample rows | `tests/` | Mon | 3, 23 |
+| 37 | Deploy the API and dashboard to a team-agreed hosting target; verify health, prediction, and dashboard endpoints | Deployment URL and smoke-check notes | After 28 | 20, 23, 27, 28; hosting target agreed |
 
 ### Report, slides, demo
 | # | Task | Output | Slot | Needs |
@@ -161,10 +162,10 @@ Members A and D are unavailable. Completed files and results from their work sta
 | Person | Current task numbers | Count |
 |---|---|---|
 | **B** | **2, 4, 5, 10, 11, 14, 15, 18, 19, 21, 22, 29, 30, 31, 32** | 15 |
-| **C** | **1, 3, 6, 7, 8, 9, 12, 13, 16, 17, 20, 23, 24, 25, 26, 27, 28, 33, 35, 36** | 20 |
+| **C** | **1, 3, 6, 7, 8, 9, 12, 13, 16, 17, 20, 23, 24, 25, 26, 27, 28, 33, 35, 36, 37** | 21 |
 | **Deferred** | **34** | — |
 
-Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for tasks 3, 6–9, 12, 16, 20, 22, and 31 remain complete; C maintains the shared ML pipeline and model artifacts, while B maintains the error-analysis and report work. D outputs already completed by B/C (19, 21, 27) remain complete.
+Tasks 1–33 and 35–37 are assigned exactly once. Completed A outputs for tasks 3, 6–9, 12, 16, 20, 22, and 31 remain complete; C maintains the shared ML pipeline and model artifacts, while B maintains the error-analysis and report work. D outputs already completed by B/C (19, 21, 27) remain complete.
 
 ### Handoffs and remaining work
 
@@ -182,12 +183,13 @@ Tasks 1–33 and 35–36 are assigned exactly once. Completed A outputs for task
 | 28 — Fresh-clone launcher check | C | Completed; clean clone installed `requirements-demo.txt`, `run.bat` started API/dashboard, `/health` reported `v1`, five replayed rows updated `/stats`, and the dashboard returned HTTP 200. |
 | 29 — Integration tests | B | Completed; `tests/test_member_b.py` passes all 4 checks under the pinned scikit-learn 1.6.1 environment. |
 | 35 — Backup demo recording | C | Pending; the three-minute walkthrough is documented, but the requested two-minute screen recording is not yet in the repository. |
+| 37 — Deployment | C | Assigned; deployment target and credentials have not been selected. Deploy the API and dashboard after the team agrees on a host, then record the URL and smoke-check results. |
 | 34 — Slide deck | Deferred | Prepare later when the team is ready to make slides. |
 
 Notes on ownership:
 - C takes maintenance of shared `data.py`, `preprocess.py`, `models.py`, `evaluate.py`, and final-model code so B's remaining experiments can use stable interfaces.
 - B keeps the bounded experiment, analysis, testing, figures, and report tasks that build on B's existing project contributions.
-- C owns API/dashboard integration and the shared model-version repair. B reruns the dependent checks after that handoff.
+- C owns API/dashboard integration, the shared model-version repair, local demo launch, and task 37 deployment. The team must agree on the hosting target before task 37 can be executed.
 - Keep changes scoped to each owner's files and coordinate shared-file edits before making them.
 
 ---
@@ -270,6 +272,7 @@ Notes on ownership:
 - [ ] 5 class results with per attack recall and error analysis
 - [ ] `models/final.joblib` loads in the API and dashboard shows live predictions
 - [ ] Fresh clone runs from README instructions
+- [ ] C deploys API and dashboard to the team-agreed target and verifies the live endpoints
 - [ ] Report PDF and backup demo recording
 - [ ] Slide deck (task 34; deferred until later)
 - [ ] Every member can explain the full pipeline, not only their own tasks
