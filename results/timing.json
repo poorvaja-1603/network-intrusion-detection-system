@@ -1,0 +1,278 @@
+{
+  "experiment": "timing_benchmark",
+  "model": "J48",
+  "repeats": 5,
+  "requested_reduced_dims": 20,
+  "base_seed": 42,
+  "train_rows": 125973,
+  "preprocessed_features": 122,
+  "timing_scope": "fit only; transforms are fit on KDDTrain+ only",
+  "summary": {
+    "full": {
+      "n_dims": 122,
+      "preprocessing_fit": {
+        "mean_seconds": 0.166511,
+        "std_seconds": 0.035745
+      },
+      "projection_fit": {
+        "mean_seconds": 0.0,
+        "std_seconds": 0.0
+      },
+      "classifier_fit": {
+        "mean_seconds": 0.667925,
+        "std_seconds": 0.065829
+      },
+      "total_fit": {
+        "mean_seconds": 0.834436,
+        "std_seconds": 0.09637
+      }
+    },
+    "pca": {
+      "n_dims": 20,
+      "preprocessing_fit": {
+        "mean_seconds": 0.147772,
+        "std_seconds": 0.057944
+      },
+      "projection_fit": {
+        "mean_seconds": 0.086474,
+        "std_seconds": 0.013058
+      },
+      "classifier_fit": {
+        "mean_seconds": 2.69445,
+        "std_seconds": 0.114931
+      },
+      "total_fit": {
+        "mean_seconds": 2.928696,
+        "std_seconds": 0.14758
+      }
+    },
+    "rp_gaussian": {
+      "n_dims": 20,
+      "preprocessing_fit": {
+        "mean_seconds": 0.157285,
+        "std_seconds": 0.014937
+      },
+      "projection_fit": {
+        "mean_seconds": 0.024759,
+        "std_seconds": 0.007496
+      },
+      "classifier_fit": {
+        "mean_seconds": 2.880276,
+        "std_seconds": 0.389768
+      },
+      "total_fit": {
+        "mean_seconds": 3.06232,
+        "std_seconds": 0.403598
+      }
+    },
+    "kbest": {
+      "n_dims": 20,
+      "preprocessing_fit": {
+        "mean_seconds": 0.12692,
+        "std_seconds": 0.022212
+      },
+      "projection_fit": {
+        "mean_seconds": 37.015909,
+        "std_seconds": 0.194007
+      },
+      "classifier_fit": {
+        "mean_seconds": 0.223205,
+        "std_seconds": 0.012192
+      },
+      "total_fit": {
+        "mean_seconds": 37.366035,
+        "std_seconds": 0.20168
+      }
+    }
+  },
+  "runs": {
+    "full": [
+      {
+        "repetition": 1,
+        "seed": 42,
+        "preprocessing_fit_seconds": 0.10682037499987018,
+        "projection_fit_seconds": 0.0,
+        "classifier_fit_seconds": 0.5969155420000334,
+        "total_fit_seconds": 0.7037359169999036,
+        "n_dims": 122
+      },
+      {
+        "repetition": 2,
+        "seed": 43,
+        "preprocessing_fit_seconds": 0.1974283340000511,
+        "projection_fit_seconds": 0.0,
+        "classifier_fit_seconds": 0.7317287089999809,
+        "total_fit_seconds": 0.929157043000032,
+        "n_dims": 122
+      },
+      {
+        "repetition": 3,
+        "seed": 44,
+        "preprocessing_fit_seconds": 0.16881170899978315,
+        "projection_fit_seconds": 0.0,
+        "classifier_fit_seconds": 0.5978828749998684,
+        "total_fit_seconds": 0.7666945839996515,
+        "n_dims": 122
+      },
+      {
+        "repetition": 4,
+        "seed": 45,
+        "preprocessing_fit_seconds": 0.19061483299992688,
+        "projection_fit_seconds": 0.0,
+        "classifier_fit_seconds": 0.7194152920001216,
+        "total_fit_seconds": 0.9100301250000484,
+        "n_dims": 122
+      },
+      {
+        "repetition": 5,
+        "seed": 46,
+        "preprocessing_fit_seconds": 0.16887933399993926,
+        "projection_fit_seconds": 0.0,
+        "classifier_fit_seconds": 0.693680915999721,
+        "total_fit_seconds": 0.8625602499996603,
+        "n_dims": 122
+      }
+    ],
+    "pca": [
+      {
+        "repetition": 1,
+        "seed": 42,
+        "preprocessing_fit_seconds": 0.12786004200006573,
+        "projection_fit_seconds": 0.07975429199996142,
+        "classifier_fit_seconds": 2.5857077910000044,
+        "total_fit_seconds": 2.7933221250000315,
+        "n_dims": 20
+      },
+      {
+        "repetition": 2,
+        "seed": 43,
+        "preprocessing_fit_seconds": 0.25013508300003195,
+        "projection_fit_seconds": 0.10739820799994959,
+        "classifier_fit_seconds": 2.713719458000014,
+        "total_fit_seconds": 3.0712527489999957,
+        "n_dims": 20
+      },
+      {
+        "repetition": 3,
+        "seed": 44,
+        "preprocessing_fit_seconds": 0.10645237500011717,
+        "projection_fit_seconds": 0.07555441700014853,
+        "classifier_fit_seconds": 2.5654652920002263,
+        "total_fit_seconds": 2.747472084000492,
+        "n_dims": 20
+      },
+      {
+        "repetition": 4,
+        "seed": 45,
+        "preprocessing_fit_seconds": 0.1282587919999969,
+        "projection_fit_seconds": 0.09093183300001328,
+        "classifier_fit_seconds": 2.812087915999655,
+        "total_fit_seconds": 3.031278540999665,
+        "n_dims": 20
+      },
+      {
+        "repetition": 5,
+        "seed": 46,
+        "preprocessing_fit_seconds": 0.1261520000002747,
+        "projection_fit_seconds": 0.07873079099999813,
+        "classifier_fit_seconds": 2.795269875000031,
+        "total_fit_seconds": 3.0001526660003037,
+        "n_dims": 20
+      }
+    ],
+    "rp_gaussian": [
+      {
+        "repetition": 1,
+        "seed": 42,
+        "preprocessing_fit_seconds": 0.14883566599996811,
+        "projection_fit_seconds": 0.02063795799995205,
+        "classifier_fit_seconds": 2.662136500000088,
+        "total_fit_seconds": 2.831610124000008,
+        "n_dims": 20
+      },
+      {
+        "repetition": 2,
+        "seed": 43,
+        "preprocessing_fit_seconds": 0.14900720900004671,
+        "projection_fit_seconds": 0.03294104199994763,
+        "classifier_fit_seconds": 2.9978186250000363,
+        "total_fit_seconds": 3.1797668760000306,
+        "n_dims": 20
+      },
+      {
+        "repetition": 3,
+        "seed": 44,
+        "preprocessing_fit_seconds": 0.14615524999999252,
+        "projection_fit_seconds": 0.017857791000096768,
+        "classifier_fit_seconds": 2.3156479999997828,
+        "total_fit_seconds": 2.479661040999872,
+        "n_dims": 20
+      },
+      {
+        "repetition": 4,
+        "seed": 45,
+        "preprocessing_fit_seconds": 0.1821837909997157,
+        "projection_fit_seconds": 0.03285666699957801,
+        "classifier_fit_seconds": 3.1571687499999825,
+        "total_fit_seconds": 3.3722092079992763,
+        "n_dims": 20
+      },
+      {
+        "repetition": 5,
+        "seed": 46,
+        "preprocessing_fit_seconds": 0.16024429099979898,
+        "projection_fit_seconds": 0.019500790999700257,
+        "classifier_fit_seconds": 3.268608750000112,
+        "total_fit_seconds": 3.4483538319996114,
+        "n_dims": 20
+      }
+    ],
+    "kbest": [
+      {
+        "repetition": 1,
+        "seed": 42,
+        "preprocessing_fit_seconds": 0.10669674999985546,
+        "projection_fit_seconds": 37.00534170800006,
+        "classifier_fit_seconds": 0.2383978749999187,
+        "total_fit_seconds": 37.350436332999834,
+        "n_dims": 20
+      },
+      {
+        "repetition": 2,
+        "seed": 43,
+        "preprocessing_fit_seconds": 0.12368854099986493,
+        "projection_fit_seconds": 36.75666649999994,
+        "classifier_fit_seconds": 0.21104000000013912,
+        "total_fit_seconds": 37.09139504099994,
+        "n_dims": 20
+      },
+      {
+        "repetition": 3,
+        "seed": 44,
+        "preprocessing_fit_seconds": 0.1045112080000763,
+        "projection_fit_seconds": 37.11302612500003,
+        "classifier_fit_seconds": 0.23410554199972466,
+        "total_fit_seconds": 37.451642874999834,
+        "n_dims": 20
+      },
+      {
+        "repetition": 4,
+        "seed": 45,
+        "preprocessing_fit_seconds": 0.15011033300015697,
+        "projection_fit_seconds": 36.930655500000285,
+        "classifier_fit_seconds": 0.21617095800002062,
+        "total_fit_seconds": 37.29693679100046,
+        "n_dims": 20
+      },
+      {
+        "repetition": 5,
+        "seed": 46,
+        "preprocessing_fit_seconds": 0.1495935829998416,
+        "projection_fit_seconds": 37.27385591700022,
+        "classifier_fit_seconds": 0.216312083000048,
+        "total_fit_seconds": 37.63976158300011,
+        "n_dims": 20
+      }
+    ]
+  }
+}

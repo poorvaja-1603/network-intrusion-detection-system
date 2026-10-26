@@ -1,0 +1,126 @@
+[
+  {
+    "model": "PART",
+    "setting": "full",
+    "n_dims": 121,
+    "seed": null,
+    "accuracy": 0.78314,
+    "fpr": 0.07631,
+    "precision": 0.92139,
+    "recall": 0.67677,
+    "f1": 0.78036,
+    "macro_f1": 0.7831,
+    "confusion_matrix": [
+      [
+        8970,
+        741
+      ],
+      [
+        4148,
+        8685
+      ]
+    ],
+    "class_order_from_weka": [
+      "attack",
+      "normal"
+    ],
+    "weka_elapsed_seconds": 53.4698,
+    "dropped_zero_variance_features": [
+      "feature_17"
+    ],
+    "bayesnet_feature_scale": null
+  },
+  {
+    "model": "BayesNet",
+    "setting": "full",
+    "n_dims": 121,
+    "seed": null,
+    "accuracy": 0.74787,
+    "fpr": 0.02677,
+    "precision": 0.9661,
+    "recall": 0.57734,
+    "f1": 0.72276,
+    "macro_f1": 0.74579,
+    "confusion_matrix": [
+      [
+        9451,
+        260
+      ],
+      [
+        5424,
+        7409
+      ]
+    ],
+    "class_order_from_weka": [
+      "attack",
+      "normal"
+    ],
+    "weka_elapsed_seconds": 11.7121,
+    "dropped_zero_variance_features": [
+      "feature_17"
+    ],
+    "bayesnet_feature_scale": 1000000
+  },
+  {
+    "model": "PART",
+    "setting": "rp_gaussian",
+    "n_dims": 5,
+    "seed": 42,
+    "accuracy": 0.73909,
+    "fpr": 0.07836,
+    "precision": 0.91019,
+    "recall": 0.60095,
+    "f1": 0.72393,
+    "macro_f1": 0.7383,
+    "confusion_matrix": [
+      [
+        8950,
+        761
+      ],
+      [
+        5121,
+        7712
+      ]
+    ],
+    "class_order_from_weka": [
+      "attack",
+      "normal"
+    ],
+    "weka_elapsed_seconds": 6.0081,
+    "dropped_zero_variance_features": [
+      "feature_17"
+    ],
+    "bayesnet_feature_scale": null
+  },
+  {
+    "model": "BayesNet",
+    "setting": "rp_gaussian",
+    "n_dims": 5,
+    "seed": 42,
+    "accuracy": 0.74552,
+    "fpr": 0.06704,
+    "precision": 0.92248,
+    "recall": 0.60368,
+    "f1": 0.72978,
+    "macro_f1": 0.74465,
+    "confusion_matrix": [
+      [
+        9060,
+        651
+      ],
+      [
+        5086,
+        7747
+      ]
+    ],
+    "class_order_from_weka": [
+      "attack",
+      "normal"
+    ],
+    "weka_elapsed_seconds": 2.0283,
+    "dropped_zero_variance_features": [
+      "feature_17"
+    ],
+    "bayesnet_feature_scale": 1000000
+  }
+]
