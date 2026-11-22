@@ -172,7 +172,18 @@ with st.sidebar:
     st.markdown("### Control Panel")
     st.caption("Traffic Simulation & System Configuration")
     
-    api_url = st.text_input("API Gateway URL", "http://127.0.0.1:8000").rstrip("/")
+    # Auto-detect whether NIDS API is running on 8001 or 8000 (since Docker often uses 8000)
+    detected_url = "http://127.0.0.1:8001"
+    for port in (8001, 8000):
+        try:
+            r = requests.get(f"http://127.0.0.1:{port}/health", timeout=0.3).json()
+            if "model_version" in r:
+                detected_url = f"http://127.0.0.1:{port}"
+                break
+        except Exception:
+            pass
+
+    api_url = st.text_input("API Gateway URL", detected_url).rstrip("/")
     
     # Verify API Health
     is_online = False

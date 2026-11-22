@@ -13,5 +13,5 @@ if exist venv\Scripts\python.exe (
 if not exist models\final.joblib (
   if not exist models\dummy.joblib %PY_EXE% -m api.create_dummy || exit /b 1
 )
-start "NIDS API" /min %PY_EXE% -m uvicorn api.main:app --host 127.0.0.1 --port 8000
+start "NIDS API" /min %PY_EXE% -m uvicorn api.main:app --host 127.0.0.1 --port 8001
 %PY_EXE% -m streamlit run app\dashboard.py

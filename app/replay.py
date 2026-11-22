@@ -55,7 +55,7 @@ def load_flows(
 
 
 def stream_replay(
-    url: str = "http://127.0.0.1:8000",
+    url: str = "http://127.0.0.1:8001",
     num_flows: int = 200,
     duration_seconds: float = 10.0,
     attack_category: str | None = None,
